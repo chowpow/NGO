@@ -1,3 +1,6 @@
 public class TSM {
-    System.out.println("wardell diff");
+    public static void main(String[] args) {
+
+        System.out.println("wardell diff");
+    }
 }

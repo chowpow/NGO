@@ -1,6 +1,6 @@
 package model;
 
-public class Volunteers {
+public class Volunteer {
     private final int volunteerID;
     private final String password;
     private final String name;
@@ -10,7 +10,7 @@ public class Volunteers {
 
 
 
-    public Volunteers(int volunteerID, String password, String name, int phoneNumber, String address, String city) {
+    public Volunteer(int volunteerID, String password, String name, int phoneNumber, String address, String city) {
         this.volunteerID = volunteerID;
         this.password = password;
         this.name = name;

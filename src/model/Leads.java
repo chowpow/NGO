@@ -1,18 +1,18 @@
 package model;
 
 public class Leads {
-    private final int directorId;
-    private final int volunteerId;
+    private final int directorID;
+    private final int volunteerID;
 
 
-    public Leads(int directorId, int volunteerId) {
-        this.directorId = directorId;
-        this.volunteerId = volunteerId;
+    public Leads(int directorID, int volunteerID) {
+        this.directorID = directorID;
+        this.volunteerID = volunteerID;
 }
-    public int getDirectorId() {
-    return directorId;
+    public int getDirectorID() {
+    return directorID;
     }
-    public int getVolunteerId() {
-        return volunteerId;
+    public int getVolunteerID() {
+        return volunteerID;
     }
 }

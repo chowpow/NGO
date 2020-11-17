@@ -1,7 +1,7 @@
 package model;
 
 public class WorkOn {
-    
+
     private int projectID;
     private int volunteerID;
 

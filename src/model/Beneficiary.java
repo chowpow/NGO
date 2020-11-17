@@ -9,7 +9,6 @@ public class Beneficiary {
     private final String city;
     private final String postalCode;
 
-
     public Beneficiary(int beneficiaryID, String name, int age, int phoneNumber, String city, String postalCode) {
     this.beneficiaryID = beneficiaryID;
     this.name = name;

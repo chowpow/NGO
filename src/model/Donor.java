@@ -22,7 +22,7 @@ public class Donor {
     public int getDonorId() {
         return donorId;
     }
-    
+
     public String getDonorName() {
         return donorName;
     }

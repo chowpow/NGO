@@ -2,7 +2,7 @@ package model;
 
 public class Beneficiary {
 
-    private final int beneficiaryId;
+    private final int beneficiaryID;
     private final String name;
     private final int age;
     private final int phoneNumber;
@@ -10,8 +10,8 @@ public class Beneficiary {
     private final String postalCode;
 
 
-    public Beneficiary(int beneficiaryId, String name, int age, int phoneNumber, String city, String postalCode) {
-    this.beneficiaryId = beneficiaryId;
+    public Beneficiary(int beneficiaryID, String name, int age, int phoneNumber, String city, String postalCode) {
+    this.beneficiaryID = beneficiaryID;
     this.name = name;
     this.age = age;
     this.phoneNumber = phoneNumber;
@@ -19,8 +19,8 @@ public class Beneficiary {
     this.postalCode = postalCode;
     }
 
-    public int getBeneficiaryId() {
-        return beneficiaryId;
+    public int getBeneficiaryID() {
+        return beneficiaryID;
     }
     public String getName() {
         return name;

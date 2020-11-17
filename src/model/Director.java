@@ -1,6 +1,5 @@
 package model;
 
-import oracle.jrockit.jfr.StringConstantPool;
 
 public class Director {
 
@@ -24,7 +23,7 @@ public class Director {
     public int getDirectorId() {
         return directorId;
     }
-    
+
     public String getPassword() {
         return password;
     }

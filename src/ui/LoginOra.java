@@ -1,0 +1,61 @@
+package ui;
+
+import delegates.LoginDelegate;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class LoginOra extends JFrame implements ActionListener{
+    private JPanel panel1;
+    private JTextField usernameTextField;
+    private JPasswordField passwordField;
+    private JButton button1;
+    private JLabel userLabel;
+    private JLabel passwordLabel;
+    private JLabel statusLabel;
+
+    private LoginDelegate delegate;
+    private int attempts;
+
+
+
+    public LoginOra() {
+        super("Oracle Login");
+
+    }
+
+    public void show(LoginDelegate delegate) {
+        this.delegate = delegate;
+        attempts = 0;
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setContentPane(panel1);
+        this.pack();
+
+        button1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String userName = usernameTextField.getText();
+                String passWord = String.valueOf(passwordField.getPassword());
+            }
+        });
+
+        this.setVisible(true);
+    }
+
+//    public static void main(String[] args) {
+//        JFrame frame = new LoginOra();
+//        frame.setVisible(true);
+//    }
+
+    public void loginFail() {
+        attempts++;
+        passwordField.setText("");
+        statusLabel.setText("Login Failed");
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        delegate.oraLogin(usernameTextField.getText(), String.valueOf(passwordField.getPassword()));
+    }
+}

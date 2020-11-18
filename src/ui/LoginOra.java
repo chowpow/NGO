@@ -18,8 +18,7 @@ public class LoginOra extends JFrame{
     private LoginDelegate delegate;
     private int attempts;
     private int MAX_ATTEMPTS = 3;
-
-
+    
 
     public LoginOra() {
         super("Oracle Login");
@@ -43,10 +42,6 @@ public class LoginOra extends JFrame{
         this.setVisible(true);
     }
 
-//    public static void main(String[] args) {
-//        JFrame frame = new LoginOra();
-//        frame.setVisible(true);
-//    }
 
     public void loginFail() {
         attempts++;

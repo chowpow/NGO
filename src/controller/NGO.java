@@ -2,7 +2,9 @@ package controller;
 
 import database.DatabaseHandler;
 import delegates.LoginDelegate;
+import model.Volunteer;
 import ui.LoginOra;
+import ui.UserInput;
 
 public class NGO implements LoginDelegate {
     private DatabaseHandler databaseHandler;
@@ -24,6 +26,10 @@ public class NGO implements LoginDelegate {
         if (connected) {
 
             loginWindow.dispose();
+            UserInput userInput = new UserInput();
+            setUpDataBase();
+            //userInput.showMenu(this);
+
 
         } else {
             loginWindow.loginFail();
@@ -36,9 +42,19 @@ public class NGO implements LoginDelegate {
         }
     }
 
+    private void setUpDataBase() {
+        databaseHandler.databaseSetUp();
+    }
+
+    public void insertVolunteer(Volunteer volunteer) {
+        databaseHandler.insertVolunteer(volunteer);
+    }
+
 
     public static void main(String[] args) {
         NGO ngo = new NGO();
         ngo.start();
     }
+
+
 }

@@ -17,7 +17,7 @@ public class NGO implements LoginDelegate {
 
     @Override
     public void oraLogin(String username, String password) {
-        
+
     }
 
 

@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LoginOra extends JFrame implements ActionListener{
+public class LoginOra extends JFrame{
     private JPanel panel1;
     private JTextField usernameTextField;
     private JPasswordField passwordField;
@@ -17,6 +17,7 @@ public class LoginOra extends JFrame implements ActionListener{
 
     private LoginDelegate delegate;
     private int attempts;
+    private int MAX_ATTEMPTS = 3;
 
 
 
@@ -28,15 +29,14 @@ public class LoginOra extends JFrame implements ActionListener{
     public void show(LoginDelegate delegate) {
         this.delegate = delegate;
         attempts = 0;
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(panel1);
         this.pack();
 
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String userName = usernameTextField.getText();
-                String passWord = String.valueOf(passwordField.getPassword());
+                delegate.oraLogin(usernameTextField.getText(), String.valueOf(passwordField.getPassword()));
             }
         });
 
@@ -54,8 +54,7 @@ public class LoginOra extends JFrame implements ActionListener{
         statusLabel.setText("Login Failed");
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        delegate.oraLogin(usernameTextField.getText(), String.valueOf(passwordField.getPassword()));
+    public boolean hasReachedAttemptLimit() {
+        return (attempts >= MAX_ATTEMPTS);
     }
 }

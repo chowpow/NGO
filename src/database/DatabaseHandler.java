@@ -45,6 +45,27 @@ public class DatabaseHandler {
         }
     }
 
+    public void databaseSetUp() {
+        volunteerTableSetup();
+    }
+
+    // volunteer table operations
+    public void volunteerTableSetup() {
+        dropTableIfExists("volunteer");
+        
+        try {
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("CREATE TABLE volunteer (volunteer_id integer PRIMARY KEY, v_password varchar2(20) not null, v_name varchar2(50), v_phone integer not null, v_address varchar2(50), v_city varchar2(50))");
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        Volunteer volunteer1 = new Volunteer(123467, "23423dsdg", "Paul Pogba", 3215567, "567 Main Mall", "Vancouver");
+        insertVolunteer(volunteer1);
+    }
+
     public void insertVolunteer(Volunteer volunteer) {
         try {
             PreparedStatement ps = connection.prepareStatement("INSERT INTO volunteer VALUES (?,?,?,?,?,?)");
@@ -62,45 +83,6 @@ public class DatabaseHandler {
         }
     }
 
-    public void databaseSetUp() {
-        volunteerTableSetup();
-    }
-
-    public void volunteerTableSetup() {
-        dropTableIfExists("volunteer");
-        
-        try {
-            Statement statement = connection.createStatement();
-            statement.executeUpdate("CREATE TABLE volunteer (volunteer_id integer PRIMARY KEY, v_password varchar2(20) not null, v_name varchar2(50), v_phone integer not null, v_address varchar2(50), v_city varchar2(50))");
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        Volunteer volunteer1 = new Volunteer(123467, "23423dsdg", "Paul Pogba", 3215567, "567 Main Mall", "Vancouver");
-        insertVolunteer(volunteer1);
-    }
-
-    private void dropTableIfExists(String tableName) {
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("select table_name  from user_tables");
-
-            while(resultSet.next()) {
-                if (resultSet.getString(1).toLowerCase().equals(tableName)) {
-                    statement.execute("DROP TABLE " + tableName);
-                    break;
-                }
-            }
-
-            resultSet.close();
-            statement.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void deleteVolunteer(int vid) {
         try {
@@ -114,6 +96,26 @@ public class DatabaseHandler {
 
             connection.commit();
             preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // method to drop tables if they already exist
+    private void dropTableIfExists(String tableName) {
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select table_name from user_tables");
+            while(resultSet.next()) {
+                if (resultSet.getString(1).toLowerCase().equals(tableName)) {
+                    statement.execute("DROP TABLE " + tableName);
+                    break;
+                }
+            }
+
+            resultSet.close();
+            statement.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

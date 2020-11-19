@@ -46,9 +46,7 @@ public class NGO implements LoginDelegate {
         databaseHandler.databaseSetUp();
     }
 
-    public void insertVolunteer(Volunteer volunteer) {
-        databaseHandler.insertVolunteer(volunteer);
-    }
+
 
 
     public static void main(String[] args) {
@@ -56,6 +54,10 @@ public class NGO implements LoginDelegate {
         ngo.start();
     }
 
+    // volunteer operations
+    public void insertVolunteer(Volunteer volunteer) {
+        databaseHandler.insertVolunteer(volunteer);
+    }
 
     public void deleteVolunteer(int vid) {
         databaseHandler.deleteVolunteer(vid);

@@ -39,7 +39,7 @@ public class UserInput {
                         handleVolunteerOperation();
                         break;
                     case 2:
-                        handleDirectorOperation(ngo);
+                        handleDirectorOperation();
                         break;
                     case 5:
                         quit();
@@ -90,6 +90,7 @@ public class UserInput {
 
     }
 
+    // volunteer query methods
     private void handleVolunteerInsert() {
         int vid = INVALID_INPUT;
         // || ((int) (Math.log10(vid) + 1)) < 9 for check
@@ -153,7 +154,7 @@ public class UserInput {
 
 
 
-    private void handleDirectorOperation(NGO ngo) {
+    private void handleDirectorOperation() {
     }
 
     private void quit() {
@@ -161,6 +162,12 @@ public class UserInput {
 
 
 
+
+
+
+
+
+    // read userInput methods
     private int readInt() {
         String line = null;
         int input = INVALID_INPUT;

@@ -18,6 +18,7 @@ public class DatabaseHandler {
         }
     }
 
+    // Close the connection with Oracle
     public void close() {
         try {
             if (connection != null) {
@@ -28,6 +29,7 @@ public class DatabaseHandler {
         }
     }
 
+    // Uses the passed username and password to connect to Oracle servers, if connection works it returns true
     public boolean login(String username, String password) {
         try {
             if (connection != null) {
@@ -40,34 +42,41 @@ public class DatabaseHandler {
             System.out.println("Connected to Oracle!");
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Connection has failed");
             return false;
         }
     }
 
+    // Create all tables
     public void databaseSetUp() {
         volunteerTableSetup();
     }
 
     // volunteer table operations
     public void volunteerTableSetup() {
+        // If a volunteer table already exists, must get rid of it first
         dropTableIfExists("volunteer");
         
         try {
+            // The SQL script to create the table
             Statement statement = connection.createStatement();
-            statement.executeUpdate("CREATE TABLE volunteer (volunteer_id integer PRIMARY KEY, v_password varchar2(20) not null, v_name varchar2(50), v_phone integer not null, v_address varchar2(50), v_city varchar2(50))");
+            statement.executeUpdate("CREATE TABLE volunteer (volunteer_id integer PRIMARY KEY, v_password varchar2(20) not null, " +
+                    "v_name varchar2(50), v_phone integer not null check (v_phone between 1000000 and 9999999), v_address varchar2(50), v_city varchar2(50))");
 
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        Volunteer volunteer1 = new Volunteer(123467, "23423dsdg", "Paul Pogba", 3215567, "567 Main Mall", "Vancouver");
+        // 1 Sample entry is created and inserted to the table
+        Volunteer volunteer1 = new Volunteer(123456, "23423dsdg", "Paul Pogba", 3215567, "567 Main Mall", "Vancouver");
         insertVolunteer(volunteer1);
     }
 
+    // A volunteer instance is passed to the method, uses getters to grab all the attributes and sets them to a new tuple in the table
     public void insertVolunteer(Volunteer volunteer) {
         try {
+            // parameterIndices correspond to the positions of the attributes (ex volunteer id is the first attribute)
             PreparedStatement ps = connection.prepareStatement("INSERT INTO volunteer VALUES (?,?,?,?,?,?)");
             ps.setInt(1, volunteer.getVolunteerID());
             ps.setString(2, volunteer.getPassword());
@@ -83,7 +92,7 @@ public class DatabaseHandler {
         }
     }
 
-
+    // Given a volunteer id, delete the volunteer corresponding with that vid
     public void deleteVolunteer(int vid) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM volunteer WHERE volunteer_id = ?");
@@ -101,7 +110,7 @@ public class DatabaseHandler {
         }
     }
 
-    // method to drop tables if they already exist
+    // method to drop tables if they already exist, name of the table needing to be dropped is the parameter
     private void dropTableIfExists(String tableName) {
         try {
             Statement statement = connection.createStatement();

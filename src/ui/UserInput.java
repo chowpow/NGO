@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+// UserInput interface contains an NGO variable
 public class UserInput {
 
     private BufferedReader bufferedReader = null;
@@ -14,11 +15,13 @@ public class UserInput {
 
     private static final int INVALID_INPUT = Integer.MIN_VALUE;
 
-    public UserInput() {
+    // An instance of NGO is passed to the constructor
+    public UserInput(NGO ngo) {
+        this.ngo = ngo;
     }
 
-    public void showMenu(NGO ngo) {
-        this.ngo = ngo;
+    // Main menu for user interaction, user can choose what table they are working on
+    public void showMenu() {
 
         bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         int choice = INVALID_INPUT;
@@ -77,7 +80,6 @@ public class UserInput {
                         handleVolunteerDelete();
                         break;
                     case 5:
-                        quit();
                         break;
                     default:
                         System.out.println("Not a valid option");
@@ -94,25 +96,25 @@ public class UserInput {
     private void handleVolunteerInsert() {
         int vid = INVALID_INPUT;
         // || ((int) (Math.log10(vid) + 1)) < 9 for check
-        while (vid == INVALID_INPUT || ((int) (Math.log10(vid) + 1)) < 9) {
+        while (vid == INVALID_INPUT || (vid > 100000 && vid <= 999999)) {
             System.out.println("Please enter the volunteer ID");
             vid = readInt();
         }
 
         String vPassword = null;
-        while (vPassword == null) {
+        while (vPassword == null || vPassword.length() <=0) {
             System.out.println("Please enter the volunteer password");
             vPassword = readString().trim();
         }
 
         String vName = null;
-        while (vName == null) {
+        while (vName == null || vName.length() <=0) {
             System.out.println("Please enter the volunteer's name");
             vName = readString().trim();
         }
 
         int vPhoneNumber = INVALID_INPUT;
-        while (vPhoneNumber == INVALID_INPUT) {
+        while (vPhoneNumber == INVALID_INPUT || (vPhoneNumber > 1000000 && vPhoneNumber <= 9999999)) {
             System.out.println("Please enter the volunteer's phone number");
             vPhoneNumber = readInt();
         }
@@ -129,8 +131,10 @@ public class UserInput {
             vCity = readString().trim();
         }
 
+        // Creates a new instance of Volunteer Object with what the user inputted
         Volunteer volunteer = new Volunteer(vid, vPassword, vName, vPhoneNumber, vAddress, vCity);
 
+        // Calls the insertVolunteer method in NGO
         ngo.insertVolunteer(volunteer);
     }
 
@@ -158,6 +162,17 @@ public class UserInput {
     }
 
     private void quit() {
+        System.out.println("System quitting");
+
+        if (bufferedReader != null) {
+            try {
+                bufferedReader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        ngo.endUserInput();
     }
 
 

@@ -19,16 +19,16 @@ public class LoginOra extends JFrame{
     private int attempts;
     private int MAX_ATTEMPTS = 3;
     
-
+    // Class for the oracle login interface
     public LoginOra() {
         super("Oracle Login");
 
     }
 
+    // Displays the login window, pressing the button gets the username and password fields and uses them to call oraLogin inside NGO
     public void show(LoginDelegate delegate) {
         this.delegate = delegate;
         attempts = 0;
-        //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(panel1);
         this.pack();
 

@@ -57,4 +57,7 @@ public class NGO implements LoginDelegate {
     }
 
 
+    public void deleteVolunteer(int vid) {
+        databaseHandler.deleteVolunteer(vid);
+    }
 }

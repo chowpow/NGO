@@ -101,4 +101,21 @@ public class DatabaseHandler {
             e.printStackTrace();
         }
     }
+
+    public void deleteVolunteer(int vid) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM volunteer WHERE volunteer_id = ?");
+            preparedStatement.setInt(1, vid);
+
+            int rowCount = preparedStatement.executeUpdate();
+            if (rowCount == 0) {
+                System.out.println(vid + " does not exist!");
+            }
+
+            connection.commit();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

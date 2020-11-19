@@ -36,7 +36,7 @@ public class UserInput {
             if (choice != INVALID_INPUT) {
                 switch (choice) {
                     case 1:
-                        handleVolunteerOperation(ngo);
+                        handleVolunteerOperation();
                         break;
                     case 2:
                         handleDirectorOperation(ngo);
@@ -54,8 +54,8 @@ public class UserInput {
 
 
 
-    private void handleVolunteerOperation(NGO ngo) {
-        this.ngo = ngo;
+    private void handleVolunteerOperation() {
+
         bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         int choice = INVALID_INPUT;
 
@@ -93,7 +93,7 @@ public class UserInput {
     private void handleVolunteerInsert() {
         int vid = INVALID_INPUT;
         // || ((int) (Math.log10(vid) + 1)) < 9 for check
-        while (vid == INVALID_INPUT) {
+        while (vid == INVALID_INPUT || ((int) (Math.log10(vid) + 1)) < 9) {
             System.out.println("Please enter the volunteer ID");
             vid = readInt();
         }
@@ -134,7 +134,14 @@ public class UserInput {
     }
 
     private void handleVolunteerDelete() {
-
+        int vid = INVALID_INPUT;
+        while (vid == INVALID_INPUT) {
+            System.out.println("Enter the volunteer ID you would like to delete");
+            vid = readInt();
+            if (vid != INVALID_INPUT) {
+                ngo.deleteVolunteer(vid);
+            }
+        }
     }
 
 

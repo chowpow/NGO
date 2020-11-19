@@ -28,7 +28,7 @@ public class NGO implements LoginDelegate {
             loginWindow.dispose();
             UserInput userInput = new UserInput();
             setUpDataBase();
-            //userInput.showMenu(this);
+            userInput.showMenu(this);
 
 
         } else {

@@ -1,5 +1,7 @@
 package database;
 
+import model.Fund;
+import model.Help;
 import model.Leads;
 import model.Volunteer;
 
@@ -52,6 +54,8 @@ public class DatabaseHandler {
     public void databaseSetUp() {
         volunteerTableSetup();
         leadsTableSetup();
+        helpTableSetup();
+        fundTableSetup();
     }
 
     // volunteer table operations
@@ -167,5 +171,76 @@ public class DatabaseHandler {
             e.printStackTrace();
         }
     }
+    public void helpTableSetup() {
+        // If a volunteer table already exists, must get rid of it first
+        dropTableIfExists("help");
+
+        try {
+            // The SQL script to create the table
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("CREATE TABLE help (project_id integer PRIMARY KEY," +
+                    "beneficiary_id integer PRIMARY KEY, " +
+                    "FOREIGN KEY (project_id) REFERENCES project (project_id), " +
+                    "FOREIGN KEY (beneficiary_id) REFERENCES beneficiary (beneficiary_id));");
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // 1 Sample entry is created and inserted to the table
+
+        Help help1 = new Help(234567,345678);
+        insertHelp(help1);
+    }
+    public void insertHelp(Help help) {
+        try {
+            // parameterIndices correspond to the positions of the attributes (ex volunteer id is the first attribute)
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO help VALUES (?,?)");
+            ps.setInt(1, help.getProjectID());
+            ps.setInt(2, help.getBeneficiaryID());
+
+            ps.executeUpdate();
+            connection.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void fundTableSetup() {
+        // If a volunteer table already exists, must get rid of it first
+        dropTableIfExists("fund");
+
+        try {
+            // The SQL script to create the table
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("CREATE TABLE fund (project_id integer PRIMARY KEY," +
+                    " donation_id integer PRIMARY KEY," +
+                    " FOREIGN KEY (project_id) REFERENCES project (project_id), " +
+                    "FOREIGN KEY (donation_id) REFERENCES donation (donation_id));");
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // 1 Sample entry is created and inserted to the table
+
+        Fund fund1 = new Fund(234567,345678);
+        insertFund(fund1);
+    }
+    public void insertFund(Fund fund) {
+        try {
+            // parameterIndices correspond to the positions of the attributes (ex volunteer id is the first attribute)
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO fund VALUES (?,?)");
+            ps.setInt(1, fund.getProjectID());
+            ps.setInt(2, fund.getDonationID());
+
+            ps.executeUpdate();
+            connection.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

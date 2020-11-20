@@ -120,6 +120,28 @@ public class DatabaseHandler {
     }
 
 
+
+
+    public void directorTableSetup() {
+        // If a director table already exists, must get rid of it first
+        dropTableIfExists("director");
+
+        try {
+            // The SQL script to create the table
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("CREATE TABLE director (director_id integer PRIMARY KEY, d_password varchar2(20) not null, " +
+                    "d_name varchar2(50), d_phone integer not null check (d_phone between 1000000 and 9999999), d_address varchar2(50), d_city varchar2(50))");
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // 1 Sample entry is created and inserted to the table
+        Director director1 = new Director(111111, "23423dsdg", "jeff", 890131, "568 Main Mall", "Vancouver");
+        insertDirector(director1);
+    }
+
     public void insertDirector(Director director) {
         try {
             // parameterIndices correspond to the positions of the attributes (ex volunteer id is the first attribute)

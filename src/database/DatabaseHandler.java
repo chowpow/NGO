@@ -1,5 +1,6 @@
 package database;
 
+import model.Leads;
 import model.Volunteer;
 
 import java.sql.*;
@@ -50,6 +51,7 @@ public class DatabaseHandler {
     // Create all tables
     public void databaseSetUp() {
         volunteerTableSetup();
+        leadsTableSetup();
     }
 
     // volunteer table operations
@@ -129,4 +131,41 @@ public class DatabaseHandler {
             e.printStackTrace();
         }
     }
+
+    // volunteer table operations
+    public void leadsTableSetup() {
+        // If a volunteer table already exists, must get rid of it first
+        dropTableIfExists("leads");
+
+        try {
+            // The SQL script to create the table
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("CREATE TABLE leads (director_id integer PRIMARY KEY, volunteer_id integer PRIMARY KEY, " +
+                    "FOREIGN KEY (director_id) REFERENCES director (director_id), " +
+                    "FOREIGN KEY (volunteer_id) REFERENCES volunteer (volunteer_id));");
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // 1 Sample entry is created and inserted to the table
+
+        Leads leads1 = new Leads(234567,345678);
+        insertLeads(leads1);
+    }
+    public void insertLeads(Leads leads) {
+        try {
+            // parameterIndices correspond to the positions of the attributes (ex volunteer id is the first attribute)
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO leads VALUES (?,?)");
+            ps.setInt(1, leads.getDirectorID());
+            ps.setInt(2, leads.getVolunteerID());
+
+            ps.executeUpdate();
+            connection.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

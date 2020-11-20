@@ -2,6 +2,7 @@ package controller;
 
 import database.DatabaseHandler;
 import delegates.LoginDelegate;
+import model.Director;
 import model.Volunteer;
 import ui.LoginOra;
 import ui.UserInput;
@@ -76,4 +77,8 @@ public class NGO implements LoginDelegate {
     public void deleteVolunteer(int vid) {
         databaseHandler.deleteVolunteer(vid);
     }
+
+    public void insertDirector(Director director) {databaseHandler.insertDirector(director);}
+
+    public void deleteDirector(int did) {databaseHandler.deleteDirector(did);}
 }

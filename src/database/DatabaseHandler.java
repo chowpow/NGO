@@ -119,6 +119,42 @@ public class DatabaseHandler {
         }
     }
 
+
+    public void insertDirector(Director director) {
+        try {
+            // parameterIndices correspond to the positions of the attributes (ex volunteer id is the first attribute)
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO director VALUES (?,?,?,?,?,?)");
+            ps.setInt(1, director.getDirectorID());
+            ps.setString(2, director.getPassword());
+            ps.setString(3, director.getName());
+            ps.setInt(4, director.getPhoneNumber());
+            ps.setString(5, director.getAddress());
+            ps.setString(6, director.getCity());
+
+            ps.executeUpdate();
+            connection.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteDirector(int did) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM director WHERE director_id = ?");
+            preparedStatement.setInt(1, did);
+
+            int rowCount = preparedStatement.executeUpdate();
+            if (rowCount == 0) {
+                System.out.println(did + " does not exist!");
+            }
+
+            connection.commit();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     // method to drop tables if they already exist, name of the table needing to be dropped is the parameter
     private void dropTableIfExists(String tableName) {
         try {

@@ -8,16 +8,16 @@ public class Director {
     private final int phoneNumber;
     private final String address;
     private final String city;
-    private final String postalCode;
+    //private final String postalCode;
 
-    public Director(int directorID, String password, String name, int phoneNumber, String address, String city, String postalCode) {
+    public Director(int directorID, String password, String name, int phoneNumber, String address, String city) {
         this.directorID = directorID;
         this.password = password;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.city = city;
-        this.postalCode = postalCode;
+      //  this.postalCode = postalCode;
     }
     public int getDirectorID() {
         return directorID;
@@ -43,9 +43,9 @@ public class Director {
         return city;
     }
 
-    public String getPostalCode() {
-        return postalCode;
-    }
+    //public String getPostalCode() {
+    // return postalCode;
+  //  }
 
 
 }

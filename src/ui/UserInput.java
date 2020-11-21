@@ -97,8 +97,8 @@ public class UserInput {
     private void handleVolunteerInsert() {
         int vid = INVALID_INPUT;
         // || ((int) (Math.log10(vid) + 1)) < 9 for check
-        while (vid == INVALID_INPUT || (vid < 100000 && vid >= 999999)) {
-            System.out.println("Please enter the volunteer ID");
+        while (vid == INVALID_INPUT || (vid <= 100000 && vid > 999999)) {
+            System.out.println("Please enter the volunteer ID (6 digits)");
             vid = readInt();
         }
 
@@ -115,8 +115,8 @@ public class UserInput {
         }
 
         int vPhoneNumber = INVALID_INPUT;
-        while (vPhoneNumber == INVALID_INPUT || (vPhoneNumber > 1000000 && vPhoneNumber <= 9999999)) {
-            System.out.println("Please enter the volunteer's phone number");
+        while (vPhoneNumber == INVALID_INPUT || (vPhoneNumber <= 1000000 && vPhoneNumber > 9999999)) {
+            System.out.println("Please enter the volunteer's phone number (7 digits)");
             vPhoneNumber = readInt();
         }
 
@@ -191,13 +191,13 @@ public class UserInput {
         int did = INVALID_INPUT;
         // || ((int) (Math.log10(vid) + 1)) < 9 for check
         //COME BACK TO THIS
-        while (did == INVALID_INPUT || (did < 100000 && did >= 999999)) {
-            System.out.println("Please enter the director ID");
+        while (did == INVALID_INPUT || (did <= 100000 && did > 999999)) {
+            System.out.println("Please enter the director ID (6 digits)");
             did = readInt();
         }
         String dPassword = null;
         while (dPassword == null || dPassword.length() <=0) {
-            System.out.println("Please enter the director password");
+            System.out.println("Please enter the director password ");
             dPassword = readString().trim();
         }
 
@@ -208,8 +208,8 @@ public class UserInput {
         }
 
         int dPhoneNumber = INVALID_INPUT;
-        while (dPhoneNumber == INVALID_INPUT || (dPhoneNumber > 1000000 && dPhoneNumber <= 9999999)) {
-            System.out.println("Please enter the director's phone number");
+        while (dPhoneNumber == INVALID_INPUT || (dPhoneNumber <= 1000000 && dPhoneNumber > 9999999)) {
+            System.out.println("Please enter the director's phone number ( 7 digits)");
             dPhoneNumber = readInt();
         }
 

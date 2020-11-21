@@ -85,6 +85,7 @@ public class DatabaseHandler {
             Statement statement = connection.createStatement();
             statement.executeUpdate("CREATE TABLE volunteer (volunteer_id integer PRIMARY KEY, v_password varchar2(20) not null, " +
                     "v_name varchar2(50), v_phone integer not null check (v_phone between 1000000 and 9999999), v_address varchar2(50), v_city varchar2(50))");
+            statement.close();
 
 
         } catch (SQLException e) {
@@ -195,7 +196,7 @@ public class DatabaseHandler {
 
     public void updateDirector(int id, String password) {
         try {
-            PreparedStatement ps = connection.prepareStatement("UPDATE director SET director_password = ? WHERE director_id = ?");
+            PreparedStatement ps = connection.prepareStatement("UPDATE director SET d_password = ? WHERE director_id = ?");
             ps.setString(1, password);
             ps.setInt(2, id);
 

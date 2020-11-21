@@ -242,9 +242,8 @@ public class DatabaseHandler {
         try {
             // The SQL script to create the table
             Statement statement = connection.createStatement();
-            statement.executeUpdate("CREATE TABLE leads (director_id integer PRIMARY KEY, volunteer_id integer PRIMARY KEY, " +
-                    "FOREIGN KEY (director_id) REFERENCES director (director_id), " +
-                    "FOREIGN KEY (volunteer_id) REFERENCES volunteer (volunteer_id));");
+            statement.executeUpdate("CREATE TABLE leads (director_id integer, volunteer_id integer, " +
+                    "PRIMARY KEY (director_id, volunteer_id),FOREIGN KEY (director_id,volunteer_id) " );
 
 
         } catch (SQLException e) {
@@ -349,7 +348,7 @@ public class DatabaseHandler {
         try {
             // The SQL script to create the table
             Statement statement = connection.createStatement();
-            statement.executeUpdate("CREATE TABLE workon (project_id integer PRIMARY KEY, " +
+            statement.executeUpdate("CREATE TABLE workOn (project_id integer PRIMARY KEY, " +
                     "volunteer_id integer PRIMARY KEY, " +
                     "FOREIGN KEY (project_id) REFERENCES project (project_id), " +
                     "FOREIGN KEY (volunteer_id) REFERENCES volunteer (volunteer_id));");

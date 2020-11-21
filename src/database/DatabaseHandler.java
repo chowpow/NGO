@@ -7,6 +7,8 @@ import java.sql.*;
 public class DatabaseHandler {
 
     private static final String ORACLE_URL = "jdbc:oracle:thin:@localhost:1522:stu";
+    private static final String EXCEPTION_TAG = "[EXCEPTION]" ;
+    private static final String WARNING_TAG = "[WARNING]";
     private Connection connection = null;
 
     public DatabaseHandler() {
@@ -50,6 +52,7 @@ public class DatabaseHandler {
     // Create all tables
     public void databaseSetUp() {
         volunteerTableSetup();
+        directorTableSetup();
         leadsTableSetup();
         helpTableSetup();
         fundTableSetup();
@@ -59,6 +62,17 @@ public class DatabaseHandler {
         donateTableSetup();
         acquireTableSetup();
         collectTableSetup();
+    }
+
+
+    //rollback connection for catching exceptions
+
+    private void rollbackConnection() {
+        try  {
+            connection.rollback();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
     }
 
     // volunteer table operations
@@ -138,7 +152,7 @@ public class DatabaseHandler {
         }
 
         // 1 Sample entry is created and inserted to the table
-        Director director1 = new Director(111111, "23423dsdg", "jeff", 890131, "568 Main Mall", "Vancouver");
+        Director director1 = new Director(111111, "23423dsdggg", "jeff", 890131, "568 Main Mall", "Vancouver");
         insertDirector(director1);
     }
 
@@ -174,6 +188,28 @@ public class DatabaseHandler {
             preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    //update function for director
+
+    public void updateDirector(int id, String password) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("UPDATE director SET director_password = ? WHERE director_id = ?");
+            ps.setString(1, password);
+            ps.setInt(2, id);
+
+            int rowCount = ps.executeUpdate();
+            if (rowCount == 0) {
+                System.out.println(WARNING_TAG +" Director" + id + " does not exist!");
+            }
+
+            connection.commit();
+
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            rollbackConnection();
         }
     }
 

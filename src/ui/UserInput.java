@@ -159,6 +159,7 @@ public class UserInput {
         while (choice != 5) {
             System.out.println("1. Insert Director");
             System.out.println("2. Delete Director");
+            System.out.println("3. Update Director password");
 
             System.out.println("5. Quit");
             System.out.println("Choose one of the above options");
@@ -173,6 +174,8 @@ public class UserInput {
                     case 2:
                         handleDirectorDelete();
                         break;
+                    case 3:
+                        handleDirectorUpdate();
                     case 5:
                         break;
                     default:
@@ -188,8 +191,8 @@ public class UserInput {
         int did = INVALID_INPUT;
         // || ((int) (Math.log10(vid) + 1)) < 9 for check
         //COME BACK TO THIS
-        while (did == INVALID_INPUT || (did > 100000 && did <= 999999)) {
-            System.out.println("Please enter the volunteer ID");
+        while (did == INVALID_INPUT || (did < 100000 && did >= 999999)) {
+            System.out.println("Please enter the director ID");
             did = readInt();
         }
         String dPassword = null;
@@ -233,13 +236,32 @@ public class UserInput {
     private void handleDirectorDelete() {
         int did = INVALID_INPUT;
         while (did == INVALID_INPUT) {
-            System.out.println("Enter the volunteer ID you would like to delete");
+            System.out.println("Enter the director ID you would like to delete");
             did = readInt();
             if (did != INVALID_INPUT) {
                 ngo.deleteDirector(did);
             }
         }
     }
+
+    private void handleDirectorUpdate() {
+        int id = INVALID_INPUT;
+        while (id == INVALID_INPUT) {
+            System.out.print("Please enter the director ID you wish to update: ");
+            id = readInt();
+        }
+
+        String password = null;
+        while (password == null || password.length() <= 0) {
+            System.out.print("Please enter the new director password ");
+            password = readString().trim();
+        }
+
+        ngo.updateDirector(id, password);
+    }
+
+
+
 
     private void quit() {
         System.out.println("System quitting");

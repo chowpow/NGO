@@ -138,7 +138,7 @@ public class DatabaseHandler {
     }
 
 
-
+//added comment
 
     public void directorTableSetup() {
         // If a director table already exists, must get rid of it first

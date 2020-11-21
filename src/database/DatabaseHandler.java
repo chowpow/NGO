@@ -283,7 +283,7 @@ public class DatabaseHandler {
 
         // 1 Sample entry is created and inserted to the table
 
-        Leads leads1 = new Leads(234567,345678);
+        Leads leads1 = new Leads(111111,123456);
         insertLeads(leads1);
     }
     public void insertLeads(Leads leads) {

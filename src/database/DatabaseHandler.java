@@ -55,14 +55,14 @@ public class DatabaseHandler {
         volunteerTableSetup();
         directorTableSetup();
         leadsTableSetup();
-        helpTableSetup();
-        fundTableSetup();
-        workOnTableSetup();
-        manageTableSetup();
-        organizeTableSetup();
-        donateTableSetup();
-        acquireTableSetup();
-        collectTableSetup();
+//        helpTableSetup();
+//        fundTableSetup();
+//        workOnTableSetup();
+//        manageTableSetup();
+//        organizeTableSetup();
+//        donateTableSetup();
+//        acquireTableSetup();
+//        collectTableSetup();
     }
 
 
@@ -155,14 +155,18 @@ public class DatabaseHandler {
 
         // 1 Sample entry is created and inserted to the table
         Director director1 = new Director(111111, "23423dsdggg", "jeff", 8901311, "568 Main Mall", "Vancouver");
+        Director director2 = new Director(123456, "sdfsdfsdffds", "Jack", 8901311, "565 Main Mall", "Vancouver");
+        Director director3 = new Director(345678, "ertrewhfhgte", "Greg", 8901311, "568 Main Younge Street", "Toronto");
         insertDirector(director1);
+        insertDirector(director2);
+        insertDirector(director3);
     }
 
     public Director[] getDirectorInfo(String dCity) {
         ArrayList<Director> result = new ArrayList<Director>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM director WHERE d_city =" +dCity );
+            ResultSet rs = stmt.executeQuery("SELECT * FROM director WHERE d_city = " + dCity);
 
 
             while(rs.next()) {

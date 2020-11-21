@@ -82,8 +82,8 @@ public class NGO implements LoginDelegate {
 
     public void deleteDirector(int did) {databaseHandler.deleteDirector(did);}
     public void updateDirector(int did, String pass) {databaseHandler.updateDirector(did, pass);}
-    public void selectionDirector() {
-        Director[] models = databaseHandler.getDirectorInfo();
+    public void selectionDirector(String dCity) {
+        Director[] models = databaseHandler.getDirectorInfo(dCity);
 
         for (int i = 0; i < models.length; i++) {
             Director model = models[i];

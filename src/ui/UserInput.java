@@ -178,7 +178,7 @@ public class UserInput {
                     case 3:
                         handleDirectorUpdate();
                     case 4:
-                        ngo.selectionDirector();
+                        handleDirectorSelection();
 
                     case 5:
                         break;
@@ -192,6 +192,14 @@ public class UserInput {
     }
 
     //SELECTION means which rows are returned
+    private void handleDirectorSelection() {
+        String dCity = null;
+        while (dCity == null) {
+            System.out.println("Please enter the city for the directors :");
+            dCity = readString().trim();
+        }
+        ngo.selectionDirector(dCity);
+    }
 
 
     private void handleDirectorInsert() {

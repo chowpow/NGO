@@ -153,9 +153,12 @@ public class DatabaseHandler {
         }
 
         // 1 Sample entry is created and inserted to the table
-        Director director1 = new Director(111111, "23423dsdggg", "jeff", 890131, "568 Main Mall", "Vancouver");
+        Director director1 = new Director(111111, "23423dsdggg", "jeff", 8901311, "568 Main Mall", "Vancouver");
         insertDirector(director1);
     }
+
+
+
 
     public void insertDirector(Director director) {
         try {
@@ -242,9 +245,8 @@ public class DatabaseHandler {
         try {
             // The SQL script to create the table
             Statement statement = connection.createStatement();
-            statement.executeUpdate("CREATE TABLE leads (director_id integer PRIMARY KEY, volunteer_id integer PRIMARY KEY, " +
-                    "FOREIGN KEY (director_id) REFERENCES director (director_id), " +
-                    "FOREIGN KEY (volunteer_id) REFERENCES volunteer (volunteer_id));");
+            statement.executeUpdate("CREATE TABLE leads (director_id integer, volunteer_id integer, " +
+                    "PRIMARY KEY (director_id, volunteer_id),FOREIGN KEY (director_id,volunteer_id) " );
 
 
         } catch (SQLException e) {
@@ -349,7 +351,7 @@ public class DatabaseHandler {
         try {
             // The SQL script to create the table
             Statement statement = connection.createStatement();
-            statement.executeUpdate("CREATE TABLE workon (project_id integer PRIMARY KEY, " +
+            statement.executeUpdate("CREATE TABLE workOn (project_id integer PRIMARY KEY, " +
                     "volunteer_id integer PRIMARY KEY, " +
                     "FOREIGN KEY (project_id) REFERENCES project (project_id), " +
                     "FOREIGN KEY (volunteer_id) REFERENCES volunteer (volunteer_id));");

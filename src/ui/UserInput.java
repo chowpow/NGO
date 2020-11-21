@@ -160,6 +160,7 @@ public class UserInput {
             System.out.println("1. Insert Director");
             System.out.println("2. Delete Director");
             System.out.println("3. Update Director password");
+            System.out.println("4. Get Director Info (SELECT)");
 
             System.out.println("5. Quit");
             System.out.println("Choose one of the above options");
@@ -176,6 +177,8 @@ public class UserInput {
                         break;
                     case 3:
                         handleDirectorUpdate();
+                    case 4:
+
                     case 5:
                         break;
                     default:
@@ -186,6 +189,9 @@ public class UserInput {
 
         }
     }
+
+    //SELECTION means which rows are returned
+
 
     private void handleDirectorInsert() {
         int did = INVALID_INPUT;

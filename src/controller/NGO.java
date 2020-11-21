@@ -82,4 +82,6 @@ public class NGO implements LoginDelegate {
 
     public void deleteDirector(int did) {databaseHandler.deleteDirector(did);}
     public void updateDirector(int did, String pass) {databaseHandler.updateDirector(did, pass);}
+
+
 }

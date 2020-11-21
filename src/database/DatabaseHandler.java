@@ -153,9 +153,12 @@ public class DatabaseHandler {
         }
 
         // 1 Sample entry is created and inserted to the table
-        Director director1 = new Director(111111, "23423dsdggg", "jeff", 890131, "568 Main Mall", "Vancouver");
+        Director director1 = new Director(111111, "23423dsdggg", "jeff", 8901311, "568 Main Mall", "Vancouver");
         insertDirector(director1);
     }
+
+
+
 
     public void insertDirector(Director director) {
         try {

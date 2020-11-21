@@ -245,8 +245,8 @@ public class DatabaseHandler {
         try {
             // The SQL script to create the table
             Statement statement = connection.createStatement();
-            statement.executeUpdate("CREATE TABLE leads (director_id integer, volunteer_id integer, " +
-                    "PRIMARY KEY (director_id, volunteer_id),FOREIGN KEY (director_id,volunteer_id) " );
+            statement.executeUpdate("CREATE TABLE leads (director_id integer, volunteer_id integer, FOREIGN KEY (director_id) REFERENCES director ON DELETE CASCADE, FOREIGN KEY (volunteer_id) REFERENCES volunteer ON DELETE CASCADE)");
+
 
 
         } catch (SQLException e) {
@@ -255,8 +255,8 @@ public class DatabaseHandler {
 
         // 1 Sample entry is created and inserted to the table
 
-        Leads leads1 = new Leads(111111,123456);
-        insertLeads(leads1);
+        //Leads leads1 = new Leads(111111,123456);
+        //insertLeads(leads1);
     }
     public void insertLeads(Leads leads) {
         try {

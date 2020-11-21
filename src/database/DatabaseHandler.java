@@ -63,6 +63,7 @@ public class DatabaseHandler {
         donateTableSetup();
         acquireTableSetup();
         collectTableSetup();
+        projectTableSetup();
     }
 
 
@@ -287,7 +288,7 @@ public class DatabaseHandler {
         insertProject(project1);
     }
 
-    // A volunteer instance is passed to the method, uses getters to grab all the attributes and sets them to a new tuple in the table
+    // A project instance is passed to the method, uses getters to grab all the attributes and sets them to a new tuple in the table
     public void insertProject(Project project) {
         try {
             // parameterIndices correspond to the positions of the attributes (ex volunteer id is the first attribute)

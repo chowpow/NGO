@@ -34,7 +34,7 @@ public class UserInput {
             System.out.println("1. Volunteer");
             System.out.println("2. Director");
             System.out.println("3. Project");
-            System.out.println("4. Project");
+            System.out.println("4. Beneficiary");
             System.out.println("5. Quit");
             System.out.println("Choose one of the above options");
 

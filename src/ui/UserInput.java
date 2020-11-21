@@ -170,6 +170,8 @@ public class UserInput {
             System.out.println("2. Delete Director");
             System.out.println("3. Update Director password");
             System.out.println("4. Get Director Info (SELECT)");
+            System.out.println("5. Get Director Info (PROJECTION)");
+
 
             System.out.println("5. Quit");
             System.out.println("Choose one of the above options");
@@ -186,10 +188,13 @@ public class UserInput {
                         break;
                     case 3:
                         handleDirectorUpdate();
+                        break;
                     case 4:
                         handleDirectorSelection();
+                        break;
 
                     case 5:
+                        ngo.projectionDirector();
                         break;
                     default:
                         System.out.println("Not a valid option");

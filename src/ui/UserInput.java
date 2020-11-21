@@ -201,6 +201,7 @@ public class UserInput {
         while (dCity == null) {
             System.out.println("Please enter the city for the directors :");
             dCity = readString().trim();
+            dCity = ("'"+dCity+"'");
         }
         ngo.selectionDirector(dCity);
     }

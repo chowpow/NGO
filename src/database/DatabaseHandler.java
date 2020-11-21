@@ -54,16 +54,17 @@ public class DatabaseHandler {
     public void databaseSetUp() {
         volunteerTableSetup();
         directorTableSetup();
-        leadsTableSetup();
-        helpTableSetup();
-        fundTableSetup();
-        workOnTableSetup();
-        manageTableSetup();
-        organizeTableSetup();
-        donateTableSetup();
-        acquireTableSetup();
-        collectTableSetup();
         projectTableSetup();
+        leadsTableSetup();
+//        helpTableSetup();
+//        fundTableSetup();
+        workOnTableSetup();
+//        manageTableSetup();
+//        organizeTableSetup();
+//        donateTableSetup();
+//        acquireTableSetup();
+//        collectTableSetup();
+
     }
 
 
@@ -400,10 +401,9 @@ public class DatabaseHandler {
         try {
             // The SQL script to create the table
             Statement statement = connection.createStatement();
-            statement.executeUpdate("CREATE TABLE fund (project_id integer PRIMARY KEY," +
-                    " donation_id integer PRIMARY KEY," +
-                    " FOREIGN KEY (project_id) REFERENCES project (project_id), " +
-                    "FOREIGN KEY (donation_id) REFERENCES donation (donation_id));");
+            statement.executeUpdate("CREATE TABLE fund (project_id integer , donation_id integer," +
+                    " FOREIGN KEY (project_id) REFERENCES project (project_id) ON DELETE CASCADE, " +
+                    "FOREIGN KEY (donation_id) REFERENCES donation (donation_id) ON DELETE CASCADE)");
 
 
         } catch (SQLException e) {
@@ -412,8 +412,8 @@ public class DatabaseHandler {
 
         // 1 Sample entry is created and inserted to the table
 
-        Fund fund1 = new Fund(234567,345678);
-        insertFund(fund1);
+//        Fund fund1 = new Fund(234567,345678);
+//        insertFund(fund1);
     }
     public void insertFund(Fund fund) {
         try {
@@ -436,10 +436,8 @@ public class DatabaseHandler {
         try {
             // The SQL script to create the table
             Statement statement = connection.createStatement();
-            statement.executeUpdate("CREATE TABLE workOn (project_id integer PRIMARY KEY, " +
-                    "volunteer_id integer PRIMARY KEY, " +
-                    "FOREIGN KEY (project_id) REFERENCES project (project_id), " +
-                    "FOREIGN KEY (volunteer_id) REFERENCES volunteer (volunteer_id));");
+            statement.executeUpdate("CREATE TABLE workON (project_id integer, volunteer_id integer, FOREIGN KEY (project_id) " +
+                    "REFERENCES project (project_id) ON DELETE CASCADE, FOREIGN KEY (volunteer_id) REFERENCES volunteer (volunteer_id) ON DELETE CASCADE)");
 
 
         } catch (SQLException e) {
@@ -448,7 +446,7 @@ public class DatabaseHandler {
 
         // 1 Sample entry is created and inserted to the table
 
-        WorkOn workOn1 = new WorkOn(234567,345678);
+        WorkOn workOn1 = new WorkOn(123456,123456);
         insertWorkOn(workOn1);
     }
     public void insertWorkOn(WorkOn workOn) {

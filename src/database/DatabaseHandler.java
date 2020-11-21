@@ -416,8 +416,8 @@ public class DatabaseHandler {
 
         // 1 Sample entry is created and inserted to the table
 
-        Leads leads1 = new Leads(111111,123456);
-        insertLeads(leads1);
+//        Leads leads1 = new Leads(111111,123456);
+//        insertLeads(leads1);
     }
     public void insertLeads(Leads leads) {
         try {
@@ -505,12 +505,12 @@ public class DatabaseHandler {
     // workOn table operations
     public void workOnTableSetup() {
         // If a fund table already exists, must get rid of it first
-        dropTableIfExists("workOn");
+        dropTableIfExists("workon");
 
         try {
             // The SQL script to create the table
             Statement statement = connection.createStatement();
-            statement.executeUpdate("CREATE TABLE workON (project_id integer, volunteer_id integer, FOREIGN KEY (project_id) " +
+            statement.executeUpdate("CREATE TABLE workon (project_id integer, volunteer_id integer, FOREIGN KEY (project_id) " +
                     "REFERENCES project (project_id) ON DELETE CASCADE, FOREIGN KEY (volunteer_id) REFERENCES volunteer (volunteer_id) ON DELETE CASCADE)");
 
 
@@ -520,8 +520,8 @@ public class DatabaseHandler {
 
         // 1 Sample entry is created and inserted to the table
 
-        WorkOn workOn1 = new WorkOn(123456,123456);
-        insertWorkOn(workOn1);
+//        WorkOn workOn1 = new WorkOn(123456,123456);
+//        insertWorkOn(workOn1);
     }
     public void insertWorkOn(WorkOn workOn) {
         try {

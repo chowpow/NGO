@@ -3,6 +3,7 @@ package database;
 import model.*;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DatabaseHandler {
 
@@ -155,6 +156,33 @@ public class DatabaseHandler {
         // 1 Sample entry is created and inserted to the table
         Director director1 = new Director(111111, "23423dsdggg", "jeff", 8901311, "568 Main Mall", "Vancouver");
         insertDirector(director1);
+    }
+
+    public Director[] getDirectorInfo() {
+        ArrayList<Director> result = new ArrayList<Director>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM director");
+
+
+            while(rs.next()) {
+                Director model = new Director(rs.getInt("director_id"),
+                        rs.getString("d_password"),
+                        rs.getString("d_name"),
+                        rs.getInt("d_phone"),
+                        rs.getString("d_address"),
+                        rs.getString("d_city"));
+                result.add(model);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+
+        return result.toArray(new Director[result.size()]);
+
     }
 
 

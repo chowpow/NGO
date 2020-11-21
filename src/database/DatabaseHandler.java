@@ -323,6 +323,54 @@ public class DatabaseHandler {
             e.printStackTrace();
         }
     }
+    public void beneficiaryTableSetup() {
+        this.dropTableIfExists("beneficiary");
+
+        try {
+            Statement statement = this.connection.createStatement();
+            statement.executeUpdate("CREATE TABLE beneficiary( beneficiary_id integer PRIMARY KEY, name varchar2(50), age integer, phoneNumber integer , city varchar2(50) , postalCode varchar2(50))");
+            statement.close();
+        } catch (SQLException var2) {
+            var2.printStackTrace();
+        }
+
+        Beneficiary beneficiary1 = new Beneficiary(123456, "Lauren Lynch", 50, 7765678, "Vancouver", "V6L1X1");
+        this.insertBeneficiary(beneficiary1);
+    }
+
+    public void insertBeneficiary(Beneficiary beneficiary) {
+        try {
+            PreparedStatement ps = this.connection.prepareStatement("INSERT INTO beneficiary VALUES (?,?,?,?,?,?)");
+            ps.setInt(1, beneficiary.getBeneficiaryID());
+            ps.setString(2, beneficiary.getName());
+            ps.setInt(3, beneficiary.getAge());
+            ps.setInt(4, beneficiary.getPhoneNumber());
+            ps.setString(5, beneficiary.getCity());
+            ps.setString(6, beneficiary.getPostalCode());
+            ps.executeUpdate();
+            this.connection.commit();
+        } catch (SQLException var3) {
+            var3.printStackTrace();
+        }
+
+    }
+
+    public void deleteBeneficiary(int bid) {
+        try {
+            PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM beneficiary WHERE beneficiary_id = ?");
+            preparedStatement.setInt(1, bid);
+            int rowCount = preparedStatement.executeUpdate();
+            if (rowCount == 0) {
+                System.out.println(bid + " does not exist!");
+            }
+
+            this.connection.commit();
+            preparedStatement.close();
+        } catch (SQLException var4) {
+            var4.printStackTrace();
+        }
+
+    }
     // leads table operations
     public void leadsTableSetup() {
         // If a leads table already exists, must get rid of it first

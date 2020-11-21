@@ -1,6 +1,7 @@
 package ui;
 
 import controller.NGO;
+import model.Beneficiary;
 import model.Director;
 import model.Project;
 import model.Volunteer;
@@ -33,6 +34,7 @@ public class UserInput {
             System.out.println("1. Volunteer");
             System.out.println("2. Director");
             System.out.println("3. Project");
+            System.out.println("4. Project");
             System.out.println("5. Quit");
             System.out.println("Choose one of the above options");
 
@@ -48,6 +50,9 @@ public class UserInput {
                         break;
                     case 3:
                         handleProjectOperation();
+                        break;
+                    case 4:
+                        handleBeneficiaryOperation();
                         break;
                     case 5:
                         quit();
@@ -353,7 +358,90 @@ public class UserInput {
             }
         }
     }
+    private void handleBeneficiaryOperation() {
+        bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        int choice = INVALID_INPUT;
 
+        while (choice != 5) {
+            System.out.println("1. Insert Beneficiary");
+            System.out.println("2. Delete Beneficiary");
+
+            System.out.println("5. Quit");
+            System.out.println("Choose one of the above options");
+
+            choice = readInt();
+
+            if (choice != INVALID_INPUT) {
+                switch (choice) {
+                    case 1:
+                        handleBeneficiaryInsert();
+                        break;
+                    case 2:
+                        handleBeneficiaryDelete();
+                        break;
+
+                    case 5:
+                        break;
+                    default:
+                        System.out.println("Not a valid option");
+                        break;
+                }
+            }
+
+        }
+    }
+    private void handleBeneficiaryInsert() {
+        int bid = INVALID_INPUT;
+        // || ((int) (Math.log10(vid) + 1)) < 9 for check
+        while (bid == INVALID_INPUT || (bid <= 100000 && bid > 999999)) {
+            System.out.println("Please enter the beneficiary ID (6 digits)");
+            bid = readInt();
+        }
+
+        String name = null;
+        while (name == null || name.length() <=0) {
+            System.out.println("Please enter  beneficiary name");
+            name = readString().trim();
+        }
+        int age = INVALID_INPUT;
+        while (age == INVALID_INPUT || (age<= 1 && age > 999)) {
+            System.out.println("Please enter the beneficiary age");
+            age = readInt();
+        }
+
+        int phoneNumber = INVALID_INPUT;
+        while (phoneNumber  == INVALID_INPUT || (phoneNumber <= 1000000 && phoneNumber > 9999999)) {
+            System.out.println("Please enter the beneficiary's phone number( 7 digits)");
+            phoneNumber = readInt();
+        }
+
+        String city = null;
+        while (city== null) {
+            System.out.println("Please enter city");
+            city = readString().trim();
+        }
+        String postalCode = null;
+        while (postalCode== null) {
+            System.out.println("Please enter postal code");
+            postalCode = readString().trim();
+        }
+        // Creates a new instance of Volunteer Object with what the user inputted
+        Beneficiary beneficiary = new Beneficiary(bid, name,age,phoneNumber,city,postalCode);
+
+        // Calls the insertProject  method in NGO
+        ngo.insertBeneficiary(beneficiary);
+    }
+
+    private void handleBeneficiaryDelete() {
+        int bid = INVALID_INPUT;
+        while (bid == INVALID_INPUT) {
+            System.out.println("Enter the volunteer ID you would like to delete");
+            bid = readInt();
+            if (bid != INVALID_INPUT) {
+                ngo.deleteBeneficiary(bid);
+            }
+        }
+    }
 
     private void quit() {
         System.out.println("System quitting");

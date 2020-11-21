@@ -2,6 +2,7 @@ package controller;
 
 import database.DatabaseHandler;
 import delegates.LoginDelegate;
+import model.Beneficiary;
 import model.Director;
 import model.Project;
 import model.Volunteer;
@@ -108,6 +109,10 @@ public class NGO implements LoginDelegate {
     public void insertProject(Project project) { databaseHandler.insertProject(project); }
     public void deleteProject(int pid) {
         databaseHandler.deleteProject(pid);
+    }
+    public void insertBeneficiary(Beneficiary beneficiary) { databaseHandler.insertBeneficiary(beneficiary); }
+    public void deleteBeneficiary(int bid) {
+        databaseHandler.deleteBeneficiary(bid);
     }
 
 }

@@ -3,7 +3,6 @@ package database;
 import model.*;
 
 import java.sql.*;
-import java.util.ArrayList;
 
 public class DatabaseHandler {
 
@@ -158,33 +157,6 @@ public class DatabaseHandler {
         insertDirector(director1);
     }
 
-    public Director[] getDirectorInfo(String dCity) {
-        ArrayList<Director> result = new ArrayList<Director>();
-        try {
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM director WHERE d_city =" +dCity );
-
-
-            while(rs.next()) {
-                Director model = new Director(rs.getInt("director_id"),
-                        rs.getString("d_password"),
-                        rs.getString("d_name"),
-                        rs.getInt("d_phone"),
-                        rs.getString("d_address"),
-                        rs.getString("d_city"));
-                result.add(model);
-            }
-
-            rs.close();
-            stmt.close();
-        } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-        }
-
-        return result.toArray(new Director[result.size()]);
-
-    }
-
 
 
 
@@ -252,7 +224,7 @@ public class DatabaseHandler {
             ResultSet resultSet = statement.executeQuery("select table_name from user_tables");
             while(resultSet.next()) {
                 if (resultSet.getString(1).toLowerCase().equals(tableName)) {
-                    statement.execute("DROP TABLE " + tableName + " cascade constraints");
+                    statement.execute("DROP TABLE " + tableName);
                     break;
                 }
             }
@@ -264,7 +236,63 @@ public class DatabaseHandler {
             e.printStackTrace();
         }
     }
+    // project table operations
+    public void projectTableSetup() {
+        // If a volunteer table already exists, must get rid of it first
+        dropTableIfExists("project");
 
+        try {
+            // The SQL script to create the table
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate("CREATE TABLE project (project_id integer PRIMARY KEY, description varchar2(500) not null, " +
+                    "budget integer not null, duration varchar2(100))");
+            statement.close();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // 1 Sample entry is created and inserted to the table
+        Project project1 = new Project(123456, "To tackle malnutrition", 1000, "2 months");
+        insertProject(project1);
+    }
+
+    // A volunteer instance is passed to the method, uses getters to grab all the attributes and sets them to a new tuple in the table
+    public void insertProject(Project project) {
+        try {
+            // parameterIndices correspond to the positions of the attributes (ex volunteer id is the first attribute)
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO project VALUES (?,?,?,?)");
+            ps.setInt(1, project.getProjectID());
+            ps.setString(2, project.getDescription());
+            ps.setInt(3, project.getBudget());
+            ps.setString(4, project.getDuration());
+
+            ps.executeUpdate();
+            connection.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Given a volunteer id, delete the volunteer corresponding with that vid
+    public void deleteProject(int pid) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM project WHERE project_id = ?");
+            preparedStatement.setInt(1, pid);
+
+            int rowCount = preparedStatement.executeUpdate();
+            if (rowCount == 0) {
+                System.out.println(pid + " does not exist!");
+            }
+
+            connection.commit();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     // leads table operations
     public void leadsTableSetup() {
         // If a leads table already exists, must get rid of it first
@@ -273,9 +301,8 @@ public class DatabaseHandler {
         try {
             // The SQL script to create the table
             Statement statement = connection.createStatement();
-            statement.executeUpdate("CREATE TABLE leads (director_id integer, volunteer_id integer, FOREIGN KEY (director_id) " +
-                    "REFERENCES director ON DELETE CASCADE, FOREIGN KEY (volunteer_id) REFERENCES volunteer ON DELETE CASCADE)");
-
+            statement.executeUpdate("CREATE TABLE leads (director_id integer, volunteer_id integer, " +
+                    "PRIMARY KEY (director_id, volunteer_id),FOREIGN KEY (director_id,volunteer_id) " );
 
 
         } catch (SQLException e) {
@@ -308,9 +335,10 @@ public class DatabaseHandler {
         try {
             // The SQL script to create the table
             Statement statement = connection.createStatement();
-            statement.executeUpdate("CREATE TABLE help (project_id integer, beneficiary_id integer, FOREIGN KEY (project_id) " +
-                    "REFERENCES project ON DELETE CASCADE, FOREIGN KEY (beneficiary_id) REFERENCES beneficiary ON DELETE CASCADE))");
-
+            statement.executeUpdate("CREATE TABLE help (project_id integer PRIMARY KEY," +
+                    "beneficiary_id integer PRIMARY KEY, " +
+                    "FOREIGN KEY (project_id) REFERENCES project (project_id), " +
+                    "FOREIGN KEY (beneficiary_id) REFERENCES beneficiary (beneficiary_id));");
 
 
         } catch (SQLException e) {
@@ -319,8 +347,8 @@ public class DatabaseHandler {
 
         // 1 Sample entry is created and inserted to the table
 
-//        Help help1 = new Help(234567,345678);
-//        insertHelp(help1);
+        Help help1 = new Help(234567,345678);
+        insertHelp(help1);
     }
     public void insertHelp(Help help) {
         try {

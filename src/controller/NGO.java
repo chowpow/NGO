@@ -3,6 +3,7 @@ package controller;
 import database.DatabaseHandler;
 import delegates.LoginDelegate;
 import model.Director;
+import model.Project;
 import model.Volunteer;
 import ui.LoginOra;
 import ui.UserInput;
@@ -104,6 +105,9 @@ public class NGO implements LoginDelegate {
 
 
     }
-
+    public void insertProject(Project project) { databaseHandler.insertProject(project); }
+    public void deleteProject(int pid) {
+        databaseHandler.deleteProject(pid);
+    }
 
 }

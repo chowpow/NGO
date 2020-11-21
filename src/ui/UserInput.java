@@ -178,6 +178,7 @@ public class UserInput {
                     case 3:
                         handleDirectorUpdate();
                     case 4:
+                        ngo.selectionDirector();
 
                     case 5:
                         break;

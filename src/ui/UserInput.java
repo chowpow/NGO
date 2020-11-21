@@ -97,7 +97,7 @@ public class UserInput {
     private void handleVolunteerInsert() {
         int vid = INVALID_INPUT;
         // || ((int) (Math.log10(vid) + 1)) < 9 for check
-        while (vid == INVALID_INPUT || (vid > 100000 && vid <= 999999)) {
+        while (vid == INVALID_INPUT || (vid < 100000 && vid >= 999999)) {
             System.out.println("Please enter the volunteer ID");
             vid = readInt();
         }

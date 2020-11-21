@@ -55,14 +55,14 @@ public class DatabaseHandler {
         volunteerTableSetup();
         directorTableSetup();
         leadsTableSetup();
-        helpTableSetup();
-        fundTableSetup();
-        workOnTableSetup();
-        manageTableSetup();
-        organizeTableSetup();
-        donateTableSetup();
-        acquireTableSetup();
-        collectTableSetup();
+//        helpTableSetup();
+//        fundTableSetup();
+//        workOnTableSetup();
+//        manageTableSetup();
+//        organizeTableSetup();
+//        donateTableSetup();
+//        acquireTableSetup();
+//        collectTableSetup();
     }
 
 
@@ -252,7 +252,7 @@ public class DatabaseHandler {
             ResultSet resultSet = statement.executeQuery("select table_name from user_tables");
             while(resultSet.next()) {
                 if (resultSet.getString(1).toLowerCase().equals(tableName)) {
-                    statement.execute("DROP TABLE " + tableName);
+                    statement.execute("DROP TABLE " + tableName + " cascade constraints");
                     break;
                 }
             }
@@ -283,8 +283,8 @@ public class DatabaseHandler {
 
         // 1 Sample entry is created and inserted to the table
 
-        //Leads leads1 = new Leads(111111,123456);
-        //insertLeads(leads1);
+        Leads leads1 = new Leads(111111,123456);
+        insertLeads(leads1);
     }
     public void insertLeads(Leads leads) {
         try {

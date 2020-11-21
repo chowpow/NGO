@@ -264,7 +264,63 @@ public class DatabaseHandler {
             e.printStackTrace();
         }
     }
+    // project table operations
+    public void projectTableSetup() {
+        // If a volunteer table already exists, must get rid of it first
+        dropTableIfExists("project");
 
+        try {
+            // The SQL script to create the table
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate("CREATE TABLE project (project_id integer PRIMARY KEY, description varchar2(500) not null, " +
+                    "budget integer not null, duration varchar2(100))");
+            statement.close();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // 1 Sample entry is created and inserted to the table
+        Project project1 = new Project(123456, "To tackle malnutrition", 1000, "2 months");
+        insertProject(project1);
+    }
+
+    // A volunteer instance is passed to the method, uses getters to grab all the attributes and sets them to a new tuple in the table
+    public void insertProject(Project project) {
+        try {
+            // parameterIndices correspond to the positions of the attributes (ex volunteer id is the first attribute)
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO project VALUES (?,?,?,?)");
+            ps.setInt(1, project.getProjectID());
+            ps.setString(2, project.getDescription());
+            ps.setInt(3, project.getBudget());
+            ps.setString(4, project.getDuration());
+
+            ps.executeUpdate();
+            connection.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Given a volunteer id, delete the volunteer corresponding with that vid
+    public void deleteProject(int pid) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM project WHERE project_id = ?");
+            preparedStatement.setInt(1, pid);
+
+            int rowCount = preparedStatement.executeUpdate();
+            if (rowCount == 0) {
+                System.out.println(pid + " does not exist!");
+            }
+
+            connection.commit();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     // leads table operations
     public void leadsTableSetup() {
         // If a leads table already exists, must get rid of it first

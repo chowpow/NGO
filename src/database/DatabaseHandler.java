@@ -158,11 +158,11 @@ public class DatabaseHandler {
         insertDirector(director1);
     }
 
-    public Director[] getDirectorInfo() {
+    public Director[] getDirectorInfo(String dCity) {
         ArrayList<Director> result = new ArrayList<Director>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM director");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM director WHERE d_city =" +dCity );
 
 
             while(rs.next()) {

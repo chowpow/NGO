@@ -56,7 +56,7 @@ public class UserInput {
     }
 
 
-
+    // Gives user options for volunteer table operations
     private void handleVolunteerOperation() {
 
         bufferedReader = new BufferedReader(new InputStreamReader(System.in));
@@ -96,7 +96,7 @@ public class UserInput {
     private void handleVolunteerInsert() {
         int vid = INVALID_INPUT;
         // || ((int) (Math.log10(vid) + 1)) < 9 for check
-        while (vid == INVALID_INPUT || (vid > 100000 && vid <= 999999)) {
+        while (vid == INVALID_INPUT || (vid <= 100000 || vid > 999999)) {
             System.out.println("Please enter the volunteer ID");
             vid = readInt();
         }
@@ -114,7 +114,7 @@ public class UserInput {
         }
 
         int vPhoneNumber = INVALID_INPUT;
-        while (vPhoneNumber == INVALID_INPUT || (vPhoneNumber > 1000000 && vPhoneNumber <= 9999999)) {
+        while (vPhoneNumber == INVALID_INPUT || (vPhoneNumber <= 1000000 && vPhoneNumber > 9999999)) {
             System.out.println("Please enter the volunteer's phone number");
             vPhoneNumber = readInt();
         }
@@ -160,6 +160,12 @@ public class UserInput {
 
     private void handleDirectorOperation() {
     }
+
+
+
+
+
+
 
     private void quit() {
         System.out.println("System quitting");

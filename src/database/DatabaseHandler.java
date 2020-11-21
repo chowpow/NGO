@@ -55,14 +55,14 @@ public class DatabaseHandler {
         volunteerTableSetup();
         directorTableSetup();
         leadsTableSetup();
-//        helpTableSetup();
-//        fundTableSetup();
-//        workOnTableSetup();
-//        manageTableSetup();
-//        organizeTableSetup();
-//        donateTableSetup();
-//        acquireTableSetup();
-//        collectTableSetup();
+        helpTableSetup();
+        fundTableSetup();
+        workOnTableSetup();
+        manageTableSetup();
+        organizeTableSetup();
+        donateTableSetup();
+        acquireTableSetup();
+        collectTableSetup();
     }
 
 
@@ -273,7 +273,8 @@ public class DatabaseHandler {
         try {
             // The SQL script to create the table
             Statement statement = connection.createStatement();
-            statement.executeUpdate("CREATE TABLE leads (director_id integer, volunteer_id integer, FOREIGN KEY (director_id) REFERENCES director ON DELETE CASCADE, FOREIGN KEY (volunteer_id) REFERENCES volunteer ON DELETE CASCADE)");
+            statement.executeUpdate("CREATE TABLE leads (director_id integer, volunteer_id integer, FOREIGN KEY (director_id) " +
+                    "REFERENCES director ON DELETE CASCADE, FOREIGN KEY (volunteer_id) REFERENCES volunteer ON DELETE CASCADE)");
 
 
 
@@ -307,10 +308,9 @@ public class DatabaseHandler {
         try {
             // The SQL script to create the table
             Statement statement = connection.createStatement();
-            statement.executeUpdate("CREATE TABLE help (project_id integer PRIMARY KEY," +
-                    "beneficiary_id integer PRIMARY KEY, " +
-                    "FOREIGN KEY (project_id) REFERENCES project (project_id), " +
-                    "FOREIGN KEY (beneficiary_id) REFERENCES beneficiary (beneficiary_id));");
+            statement.executeUpdate("CREATE TABLE help (project_id integer, beneficiary_id integer, FOREIGN KEY (project_id) " +
+                    "REFERENCES project ON DELETE CASCADE, FOREIGN KEY (beneficiary_id) REFERENCES beneficiary ON DELETE CASCADE))");
+
 
 
         } catch (SQLException e) {
@@ -319,8 +319,8 @@ public class DatabaseHandler {
 
         // 1 Sample entry is created and inserted to the table
 
-        Help help1 = new Help(234567,345678);
-        insertHelp(help1);
+//        Help help1 = new Help(234567,345678);
+//        insertHelp(help1);
     }
     public void insertHelp(Help help) {
         try {

@@ -164,7 +164,7 @@ public class DatabaseHandler {
         ArrayList<Volunteer> result = new ArrayList<Volunteer>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT volunteer_id, v_name FROM volunteer V WHERE NOT EXISTS ((SELECT P.project_id FROM project P) EXCEPT (select W.project_id FROM workon W WHERE W.vid = V.vid))");
+            ResultSet rs = stmt.executeQuery("SELECT volunteer_id, v_name FROM volunteer V WHERE NOT EXISTS ((SELECT P.project_id FROM project P) EXCEPT (select W.project_id FROM workon W WHERE W.volunteer_id = V.volunteer_id))");
 
 
             while(rs.next()) {

@@ -77,6 +77,42 @@ public class NGO implements LoginDelegate {
         databaseHandler.deleteVolunteer(vid);
     }
 
+    public void volunteerJoin1() {
+        Volunteer[] models = databaseHandler.getVolunteerInfoJoin1();
+
+        for (int i = 0; i < models.length; i++) {
+            Volunteer model = models[i];
+
+            // simplified output formatting; truncation may occur
+            //    System.out.printf("%-10.10s", model.getDirectorID());
+            System.out.printf("%-20.20s", model.getName());
+            System.out.printf("%-15.15s", model.getPhoneNumber());
+
+
+            System.out.println();
+
+        }
+
+    }
+
+    public void volunteerJoin2() {
+        Volunteer[] models = databaseHandler.getVolunteerInfoJoin2();
+
+        for (int i = 0; i < models.length; i++) {
+            Volunteer model = models[i];
+
+            // simplified output formatting; truncation may occur
+            //    System.out.printf("%-10.10s", model.getDirectorID());
+            System.out.printf("%-20.20s", model.getName());
+            System.out.printf("%-15.15s", model.getPhoneNumber());
+
+
+            System.out.println();
+
+        }
+
+    }
+
     public void insertDirector(Director director) {databaseHandler.insertDirector(director);}
 
     public void deleteDirector(int did) {databaseHandler.deleteDirector(did);}

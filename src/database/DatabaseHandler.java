@@ -202,6 +202,66 @@ public class DatabaseHandler {
 
     }
 
+    public Volunteer[] getVolunteerInfoJoin1() {
+
+        ArrayList<Volunteer> result = new ArrayList<Volunteer>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT v_name, v_phone FROM volunteer V, workon W WHERE V.volunteer_id = W.volunteer_id");
+
+
+            while(rs.next()) {
+                Volunteer model = new Volunteer( 0,
+                        " ",
+                        rs.getString("v_name"),
+                        rs.getInt("v_phone"),
+                        " ",
+                        " ");
+                result.add(model);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+
+        return result.toArray(new Volunteer[result.size()]);
+
+    }
+
+
+
+    public Volunteer[] getVolunteerInfoJoin2() {
+
+        ArrayList<Volunteer> result = new ArrayList<Volunteer>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT v_name, v_phone FROM volunteer V, leads L WHERE V.volunteer_id = L.volunteer_id");
+
+
+            while(rs.next()) {
+                Volunteer model = new Volunteer( 0,
+                        " ",
+                        rs.getString("v_name"),
+                        rs.getInt("v_phone"),
+                        " ",
+                        " ");
+                result.add(model);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+
+        return result.toArray(new Volunteer[result.size()]);
+
+    }
+
+
+
 // lol
 
     public Director[] getDirectorInfo(String dCity) {

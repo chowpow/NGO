@@ -456,7 +456,6 @@ public class UserInput {
                         ngo.projectInfo("duration"); // join with leads
                         break;
                     case 3:
-                        quit();
                         break;
                     default:
                         System.out.println("Not a valid option");

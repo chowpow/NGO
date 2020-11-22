@@ -105,6 +105,10 @@ public class DatabaseHandler {
         insertVolunteer(volunteer2);
         Volunteer volunteer3 = new Volunteer(123458, "23425dsdg", "David Smith", 3215569, "567 Main Mall", "Montreal");
         insertVolunteer(volunteer3);
+        Volunteer volunteer4 = new Volunteer(123459, "23426dsdg", "Paulina Payne", 3215561, "567 Main Mall", "Vancouver");
+        insertVolunteer(volunteer4);
+        Volunteer volunteer5 = new Volunteer(123451, "23426dsdg", "Mathias Smith", 3215563, "567 Main Mall", "Vancouver");
+        insertVolunteer(volunteer5);
     }
 
     // A volunteer instance is passed to the method, uses getters to grab all the attributes and sets them to a new tuple in the table
@@ -645,6 +649,10 @@ public class DatabaseHandler {
         insertWorkOn(workOn2);
         WorkOn workOn3 = new WorkOn(123456,123458);
         insertWorkOn(workOn3);
+        WorkOn workOn4 = new WorkOn(123456,123459);
+        insertWorkOn(workOn4);
+        WorkOn workOn5 = new WorkOn(123456,123451);
+        insertWorkOn(workOn5);
     }
     public void insertWorkOn(WorkOn workOn) {
         try {

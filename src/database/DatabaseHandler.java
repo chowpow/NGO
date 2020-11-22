@@ -64,6 +64,7 @@ public class DatabaseHandler {
 //        donateTableSetup();
 //        acquireTableSetup();
 //        collectTableSetup();
+        beneficiaryTableSetup();
 
     }
 
@@ -160,20 +161,22 @@ public class DatabaseHandler {
         insertDirector(director1);
     }
 
-    public Director[] getDirectorInfo(String dCity) {
-        ArrayList<Director> result = new ArrayList<Director>();
+    public Volunteer[] getVolunteersInfo(String dCity,Integer project_id) {
+        ArrayList<Volunteer> result = new ArrayList<Volunteer>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM director WHERE d_city =" +dCity );
+            ResultSet rs = stmt.executeQuery("SELECT * FROM project p, volunteer v, workOn w, " +
+                    "WHERE v.project_id=w.project_id and project_id=" +project_id+ "and p.city=" +dCity +
+                    ",GROUP BY project_id");
 
 
             while(rs.next()) {
-                Director model = new Director(rs.getInt("director_id"),
-                        rs.getString("d_password"),
-                        rs.getString("d_name"),
-                        rs.getInt("d_phone"),
-                        rs.getString("d_address"),
-                        rs.getString("d_city"));
+                Volunteer model = new Volunteer (rs.getInt("project_id"),
+                        rs.getString("v_password"),
+                        rs.getString("v_name"),
+                        rs.getInt("v_phone"),
+                        rs.getString("v_address"),
+                        rs.getString("v_city"));
                 result.add(model);
             }
 
@@ -183,7 +186,7 @@ public class DatabaseHandler {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
         }
 
-        return result.toArray(new Director[result.size()]);
+        return result.toArray(new Volunteer[result.size()]);
 
     }
 
@@ -272,6 +275,8 @@ public class DatabaseHandler {
             rollbackConnection();
         }
     }
+
+
 
     // method to drop tables if they already exist, name of the table needing to be dropped is the parameter
     private void dropTableIfExists(String tableName) {
@@ -397,6 +402,33 @@ public class DatabaseHandler {
         }
 
     }
+    public Director[] getDirectorInfo(String dCity) {
+        ArrayList<Director> result = new ArrayList<Director>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM director WHERE d_city =" +dCity );
+
+
+            while(rs.next()) {
+                Director model = new Director(rs.getInt("director_id"),
+                        rs.getString("d_password"),
+                        rs.getString("d_name"),
+                        rs.getInt("d_phone"),
+                        rs.getString("d_address"),
+                        rs.getString("d_city"));
+                result.add(model);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+
+        return result.toArray(new Director[result.size()]);
+
+    }
+
     // leads table operations
     public void leadsTableSetup() {
         // If a leads table already exists, must get rid of it first
@@ -510,7 +542,7 @@ public class DatabaseHandler {
         try {
             // The SQL script to create the table
             Statement statement = connection.createStatement();
-            statement.executeUpdate("CREATE TABLE workon (project_id integer, volunteer_id integer, FOREIGN KEY (project_id) " +
+            statement.executeUpdate("CREATE TABLE workOn (project_id integer, volunteer_id integer, FOREIGN KEY (project_id) " +
                     "REFERENCES project (project_id) ON DELETE CASCADE, FOREIGN KEY (volunteer_id) REFERENCES volunteer (volunteer_id) ON DELETE CASCADE)");
 
 

@@ -167,13 +167,15 @@ public class DatabaseHandler {
         ArrayList<Volunteer> result = new ArrayList<Volunteer>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM project p, volunteer v, workOn w, " +
-                    "WHERE v.volunteer_id= w.volunteer and v.project_id = w.project_id and v.project_id=" +project_id+ "and p.city=" +dCity +
-                    ",GROUP BY v.project_id");
+            ResultSet rs = stmt.executeQuery("SELECT v.volunteer_id, v.v_password,v.v_name,v.v_phone,v.v_address,v.v_city" +
+                    " FROM project p, volunteer v, workon w " +
+                    " WHERE v.volunteer_id= w.volunteer_id and p.project_id = w.project_id " +"and w.project_id ="+project_id+
+                    " and v.v_city=" +dCity+
+                    " GROUP BY v.volunteer_id, v.v_password,v.v_name,v.v_phone,v.v_address,v.v_city");
 
 
             while(rs.next()) {
-                Volunteer model = new Volunteer (rs.getInt("project_id"),
+                Volunteer model = new Volunteer (rs.getInt("volunteer_id"),
                         rs.getString("v_password"),
                         rs.getString("v_name"),
                         rs.getInt("v_phone"),
@@ -589,12 +591,12 @@ public class DatabaseHandler {
     // workOn table operations
     public void workOnTableSetup() {
         // If a fund table already exists, must get rid of it first
-        dropTableIfExists("workOn");
+        dropTableIfExists("workon");
 
         try {
             // The SQL script to create the table
             Statement statement = connection.createStatement();
-            statement.executeUpdate("CREATE TABLE workOn (project_id integer, volunteer_id integer, FOREIGN KEY (project_id) " +
+            statement.executeUpdate("CREATE TABLE workon (project_id integer, volunteer_id integer, FOREIGN KEY (project_id) " +
                     "REFERENCES project (project_id) ON DELETE CASCADE, FOREIGN KEY (volunteer_id) REFERENCES volunteer (volunteer_id) ON DELETE CASCADE)");
 
 
@@ -610,7 +612,7 @@ public class DatabaseHandler {
     public void insertWorkOn(WorkOn workOn) {
         try {
             // parameterIndices correspond to the positions of the attributes (ex workOn id is the first attribute)
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO workOn VALUES (?,?)");
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO workon VALUES (?,?)");
             ps.setInt(1, workOn.getProjectID());
             ps.setInt(2, workOn.getVolunteerID());
             ps.executeUpdate();

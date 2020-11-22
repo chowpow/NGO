@@ -166,19 +166,19 @@ public class UserInput {
 
     private void handleVolunteersInfo() {
         String dCity = null;
-        int project_id = 000000;
+        int project_id = INVALID_INPUT;
 
-        while (project_id == INVALID_INPUT || (project_id<= 100000 && project_id > 999999 )) {
-            System.out.println("Please enter the project_id for the volunteers:");
-            project_id = readInt();
-            project_id = project_id;
-        }
+
         while (dCity == null ) {
             System.out.println("Please enter the city for the volunteers :");
             dCity = readString().trim();
             dCity = ("'"+dCity+"'");
         }
-
+        while (project_id == INVALID_INPUT || (project_id<= 100000 && project_id > 999999 )) {
+            System.out.println("Please enter the project_id for the volunteers:");
+            project_id = readInt();
+            project_id = project_id;
+        }
         ngo.aggregationVolunteers(dCity, project_id);
     }
     private void handleDirectorOperation() {

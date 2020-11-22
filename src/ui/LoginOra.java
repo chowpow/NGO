@@ -2,9 +2,12 @@ package ui;
 
 import delegates.LoginDelegate;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class LoginOra extends JFrame{
     private JPanel panel1;
@@ -18,6 +21,8 @@ public class LoginOra extends JFrame{
     private LoginDelegate delegate;
     private int attempts;
     private int MAX_ATTEMPTS = 3;
+
+
     
     // Class for the oracle login interface
     public LoginOra() {

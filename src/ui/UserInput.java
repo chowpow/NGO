@@ -375,7 +375,7 @@ public class UserInput {
     private void handleProjectDelete() {
         int pid = INVALID_INPUT;
         while (pid == INVALID_INPUT) {
-            System.out.println("Enter the volunteer ID you would like to delete");
+            System.out.println("Enter the project ID you would like to delete");
             pid = readInt();
             if (pid != INVALID_INPUT) {
                 ngo.deleteProject(pid);

@@ -55,8 +55,9 @@ public class DatabaseHandler {
         volunteerTableSetup();
         directorTableSetup();
         projectTableSetup();
+        beneficiaryTableSetup();
         leadsTableSetup();
-//        helpTableSetup();
+        helpTableSetup();
 //        fundTableSetup();
         workOnTableSetup();
 //        manageTableSetup();
@@ -201,10 +202,10 @@ public class DatabaseHandler {
             while(rs.next()) {
                 Director model = new Director(rs.getInt("director_id"),
                         rs.getString("d_password"),
-                        rs.getString("d_name"),
+                        rs.getString(" "),
                         rs.getInt("d_phone"),
-                        rs.getString("d_address"),
-                        rs.getString("d_city"));
+                        rs.getString(" "),
+                        rs.getString(" "));
                 result.add(model);
             }
 
@@ -438,7 +439,7 @@ public class DatabaseHandler {
             // The SQL script to create the table
             Statement statement = connection.createStatement();
             statement.executeUpdate("CREATE TABLE leads (director_id integer, volunteer_id integer, FOREIGN KEY (director_id) " +
-                    "REFERENCES director ON DELETE CASCADE, FOREIGN KEY (volunteer_id) REFERENCES volunteer ON DELETE CASCADE)");
+                    "REFERENCES director(director_id) ON DELETE CASCADE, FOREIGN KEY (volunteer_id) REFERENCES volunteer(volunteer_id) ON DELETE CASCADE)");
 
 
 
@@ -473,7 +474,7 @@ public class DatabaseHandler {
             // The SQL script to create the table
             Statement statement = connection.createStatement();
             statement.executeUpdate("CREATE TABLE help (project_id integer, beneficiary_id integer, FOREIGN KEY (project_id) " +
-                    "REFERENCES project ON DELETE CASCADE, FOREIGN KEY (beneficiary_id) REFERENCES beneficiary ON DELETE CASCADE))");
+                    "REFERENCES project(project_id) ON DELETE CASCADE, FOREIGN KEY (beneficiary_id) REFERENCES beneficiary(beneficiary_id) ON DELETE CASCADE)");
 
 
 
@@ -483,8 +484,8 @@ public class DatabaseHandler {
 
         // 1 Sample entry is created and inserted to the table
 
-//        Help help1 = new Help(234567,345678);
-//        insertHelp(help1);
+        Help help1 = new Help(123456,123456);
+        insertHelp(help1);
     }
     public void insertHelp(Help help) {
         try {
@@ -552,8 +553,8 @@ public class DatabaseHandler {
 
         // 1 Sample entry is created and inserted to the table
 
-//        WorkOn workOn1 = new WorkOn(123456,123456);
-//        insertWorkOn(workOn1);
+        WorkOn workOn1 = new WorkOn(123456,123456);
+        insertWorkOn(workOn1);
     }
     public void insertWorkOn(WorkOn workOn) {
         try {

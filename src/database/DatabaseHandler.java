@@ -66,6 +66,7 @@ public class DatabaseHandler {
 //        acquireTableSetup();
 //        collectTableSetup();
         beneficiaryTableSetup();
+        donorTableSetup();
 
     }
 
@@ -167,7 +168,7 @@ public class DatabaseHandler {
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM project p, volunteer v, workOn w, " +
-                    "WHERE v.project_id=w.project_id and project_id=" +project_id+ "and p.city=" +dCity +
+                    "WHERE v.volunteer_id= w.volunteer and v.project_id = w.project_id and project_id=" +project_id+ "and p.city=" +dCity +
                     ",GROUP BY project_id");
 
 
@@ -390,7 +391,8 @@ public class DatabaseHandler {
 
         try {
             Statement statement = this.connection.createStatement();
-            statement.executeUpdate("CREATE TABLE beneficiary( beneficiary_id integer PRIMARY KEY, name varchar2(50), age integer, phoneNumber integer , city varchar2(50) , postalCode varchar2(50))");
+            statement.executeUpdate("CREATE TABLE beneficiary( beneficiary_id integer PRIMARY KEY, " +
+                    "name varchar2(50), age integer, phoneNumber integer , city varchar2(50) , postalCode varchar2(50))");
             statement.close();
         } catch (SQLException var2) {
             var2.printStackTrace();
@@ -432,6 +434,55 @@ public class DatabaseHandler {
             var4.printStackTrace();
         }
 
+    }
+    public void donorTableSetup() {
+        // If a director table already exists, must get rid of it first
+        dropTableIfExists("donor");
+
+        try {
+            // The SQL script to create the table
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("CREATE TABLE donor ( donor_id integer  PRIMARY KEY ," +
+                    "donorName varchar2(50), phoneNumber integer)");
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // 1 Sample entry is created and inserted to the table
+        Donor donor1 = new Donor(111111, "David Thoms", 8901311);
+        insertDonor(donor1);
+    }
+    public void insertDonor(Donor donor) {
+        try {
+            // parameterIndices correspond to the positions of the attributes (ex volunteer id is the first attribute)
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO donor VALUES (?,?,?)");
+            ps.setInt(1, donor.getDonorID());
+            ps.setString(2, donor.getDonorName());
+            ps.setInt(3, donor.getPhoneNumber());
+            ps.executeUpdate();
+            this.connection.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteDonor(int did) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM donor WHERE donor_id = ?");
+            preparedStatement.setInt(1, did);
+
+            int rowCount = preparedStatement.executeUpdate();
+            if (rowCount == 0) {
+                System.out.println(did + " does not exist!");
+            }
+
+            connection.commit();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     public Director[] getDirectorInfo(String dCity) {
         ArrayList<Director> result = new ArrayList<Director>();

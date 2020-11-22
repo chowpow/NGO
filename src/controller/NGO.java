@@ -2,10 +2,7 @@ package controller;
 
 import database.DatabaseHandler;
 import delegates.LoginDelegate;
-import model.Beneficiary;
-import model.Director;
-import model.Project;
-import model.Volunteer;
+import model.*;
 import ui.LoginOra;
 import ui.UserInput;
 
@@ -152,5 +149,8 @@ public class NGO implements LoginDelegate {
     public void deleteBeneficiary(int bid) {
         databaseHandler.deleteBeneficiary(bid);
     }
-
+    public void insertDonor(Donor donor) { databaseHandler.insertDonor(donor); }
+    public void deleteDonor(int did) {
+        databaseHandler.deleteDonor(did);
+    }
 }

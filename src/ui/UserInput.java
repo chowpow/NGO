@@ -1,10 +1,7 @@
 package ui;
 
 import controller.NGO;
-import model.Beneficiary;
-import model.Director;
-import model.Project;
-import model.Volunteer;
+import model.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -466,7 +463,79 @@ public class UserInput {
             }
         }
     }
+    private void handleDonorOperation() {
 
+        bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        int choice = INVALID_INPUT;
+
+        while (choice != 5) {
+            System.out.println("1. Insert Donor");
+            System.out.println("2. Delete Donor");
+            System.out.println("5. Quit");
+            System.out.println("Choose one of the above options");
+
+            choice = readInt();
+
+            if (choice != INVALID_INPUT) {
+                switch (choice) {
+                    case 1:
+                        handleDonorInsert();
+                        break;
+                    case 2:
+                        handleDonorDelete();
+                        break;
+                    case 5:
+                        break;
+                    default:
+                        System.out.println("Not a valid option");
+                        break;
+                }
+            }
+
+
+        }
+
+    }
+
+    // volunteer query methods
+    private void handleDonorInsert() {
+        int did = INVALID_INPUT;
+        // || ((int) (Math.log10(vid) + 1)) < 9 for check
+        while (did == INVALID_INPUT || (did <= 100000 && did > 999999)) {
+            System.out.println("Please enter the donor ID (6 digits)");
+            did = readInt();
+        }
+
+        String dName = null;
+        while (dName == null || dName.length() <=0) {
+            System.out.println("Please enter the donor's name");
+            dName = readString().trim();
+        }
+
+        int dPhoneNumber = INVALID_INPUT;
+        while (dPhoneNumber == INVALID_INPUT || (dPhoneNumber <= 1000000 && dPhoneNumber > 9999999)) {
+            System.out.println("Please enter the donor's phone number (7 digits)");
+            dPhoneNumber = readInt();
+        }
+
+
+        // Creates a new instance of Volunteer Object with what the user inputted
+        Donor donor = new Donor(did, dName, dPhoneNumber);
+
+        // Calls the insertVolunteer method in NGO
+        ngo.insertDonor(donor);
+    }
+
+    private void handleDonorDelete() {
+        int did = INVALID_INPUT;
+        while (did == INVALID_INPUT) {
+            System.out.println("Enter the donor ID you would like to delete");
+            did = readInt();
+            if (did != INVALID_INPUT) {
+                ngo.deleteDonor(did);
+            }
+        }
+    }
     private void quit() {
         System.out.println("System quitting");
 

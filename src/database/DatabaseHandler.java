@@ -167,11 +167,11 @@ public class DatabaseHandler {
         ArrayList<Volunteer> result = new ArrayList<Volunteer>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT v.volunteer_id, v.v_password,v.v_name,v.v_phone,v.v_address,v.v_city" +
+            ResultSet rs = stmt.executeQuery("SELECT v.volunteer_id, v.v_name,v.v_phone,v.v_city" +
                     " FROM project p, volunteer v, workon w " +
                     " WHERE v.volunteer_id= w.volunteer_id and p.project_id = w.project_id " +"and w.project_id ="+project_id+
                     " and v.v_city=" +dCity+
-                    " GROUP BY v.volunteer_id, v.v_password,v.v_name,v.v_phone,v.v_address,v.v_city");
+                    " GROUP BY v.volunteer_id,v.v_name,v.v_phone,v.v_city");
 
 
             while(rs.next()) {

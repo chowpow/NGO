@@ -258,6 +258,24 @@ public class UserInput {
             project_id = project_id;
         }
         ngo.getVolunteersInfo(dCity, project_id);
+
+    }
+    private void handleBeneficiaryCityAndMinAge() {
+        int project_id = INVALID_INPUT;
+        int age = INVALID_INPUT;
+
+        while (project_id == INVALID_INPUT || (project_id<= 100000 && project_id > 999999 )) {
+            System.out.println("Please enter the project_id for the selecting Beneficiary:");
+            project_id = readInt();
+            project_id = project_id;
+        }
+        while (age == INVALID_INPUT || (project_id<= 1 && project_id > 150 )) {
+            System.out.println("Please enter the limit average age for the volunteers:");
+            age = readInt();
+            age = age;
+        }
+        ngo.getBeneficiaryCityAndMinAge(project_id,age);
+
     }
     private void handleDirectorOperation() {
         bufferedReader = new BufferedReader(new InputStreamReader(System.in));
@@ -404,7 +422,8 @@ public class UserInput {
             System.out.println("1. Insert Project");
             System.out.println("2. Delete Project");
             System.out.println("3. Show Project Info");
-
+            System.out.println("4. For a given project: " +
+                    "Find all the cities for which the beneficiary's average age is more than a given age limit ");
             System.out.println("5. Quit");
             System.out.println("Choose one of the above options");
 
@@ -421,7 +440,9 @@ public class UserInput {
                     case 3:
                         handleProjectInfo();
                         break;
-
+                    case 4:
+                        handleBeneficiaryCityAndMinAge();
+                        break;
                     case 5:
                         break;
                     default:
@@ -514,7 +535,6 @@ public class UserInput {
         while (choice != 5) {
             System.out.println("1. Insert Beneficiary");
             System.out.println("2. Delete Beneficiary");
-
             System.out.println("5. Quit");
             System.out.println("Choose one of the above options");
 
@@ -528,7 +548,6 @@ public class UserInput {
                     case 2:
                         handleBeneficiaryDelete();
                         break;
-
                     case 5:
                         break;
                     default:

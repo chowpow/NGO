@@ -239,7 +239,7 @@ public class DatabaseHandler {
                     " FROM project p, volunteer v, workon w " +
                     " WHERE v.volunteer_id= w.volunteer_id and p.project_id = w.project_id " +"and w.project_id ="+project_id+
                     " and v.v_city=" +dCity+
-                    " GROUP BY v.volunteer_id,v.v_name,v.v_phone,v.v_city");
+                    " GROUP BY v.v_name,v.v_phone,v.v_city");
 
             System.out.println("Count Name" + "            " + "Phone Number City");
             while(rs.next()) {
@@ -503,6 +503,7 @@ public class DatabaseHandler {
         // 1 Sample entry is created and inserted to the table
         Project project1 = new Project(123456, "To tackle malnutrition", 1000, "2 months");
         insertProject(project1);
+
     }
 
     // A project instance is passed to the method, uses getters to grab all the attributes and sets them to a new tuple in the table
@@ -573,8 +574,27 @@ public class DatabaseHandler {
             var2.printStackTrace();
         }
 
-        Beneficiary beneficiary1 = new Beneficiary(123456, "Lauren Lynch", 50, 7765678, "Vancouver", "V6L1X1");
+        Beneficiary beneficiary1 = new Beneficiary(123456, "Lauren Lynch", 50, 7065678, "Vancouver", "V6L1X1");
         this.insertBeneficiary(beneficiary1);
+        Beneficiary beneficiary2 = new Beneficiary(123457, "Cristian Lynch", 15, 7565678, "Vancouver", "V6L1X1");
+        this.insertBeneficiary(beneficiary2);
+        Beneficiary beneficiary3 = new Beneficiary(123458, "Abel Smith", 5, 7365678, "Vancouver", "V6L1X1");
+        this.insertBeneficiary(beneficiary3);
+        Beneficiary beneficiary4 = new Beneficiary(123459, "Allisson Thoms", 18, 7865678, "Vancouver", "V6L1X1");
+        this.insertBeneficiary(beneficiary4);
+        Beneficiary beneficiary5 = new Beneficiary(123451, "Fione Gallad", 60, 7765678, "Montreal", "V6L1X1");
+        this.insertBeneficiary(beneficiary5);
+        Beneficiary beneficiary6 = new Beneficiary(123452, "Peter Lynch", 20, 7965678, "Montreal", "V6L1X1");
+        this.insertBeneficiary(beneficiary6);
+        Beneficiary beneficiary7 = new Beneficiary(123453, "Jyn Lee", 12, 6065678, "Toronto", "V6L1X1");
+        this.insertBeneficiary(beneficiary7);
+        Beneficiary beneficiary8 = new Beneficiary(123454, "Lauren Levi", 7, 6045678, "Toronto", "V6L1X1");
+        this.insertBeneficiary(beneficiary8);
+        Beneficiary beneficiary9 = new Beneficiary(123455, "Mirkka Puente", 35, 7765671, "Toronto", "V6L1X1");
+        this.insertBeneficiary(beneficiary9);
+        Beneficiary beneficiary10 = new Beneficiary(123416, "John Pratt", 45, 6045674, "Montreal", "V6L1X1");
+        this.insertBeneficiary(beneficiary10);
+
     }
 
     public void insertBeneficiary(Beneficiary beneficiary) {
@@ -610,6 +630,32 @@ public class DatabaseHandler {
         }
 
     }
+
+    public void getBeneficiaryCityAndMinAge(int project_id, int age) {
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT temp.avage, temp.city FROM(SELECT avg (b.age) avage,b.city " +
+                    "FROM beneficiary b, help h WHERE b.beneficiary_id = h.beneficiary_id and h.project_id="+project_id+
+                    " GROUP BY b.city) temp WHERE temp.avage >="+age);
+            //" +
+            //                    "
+            System.out.println("City " +"      " +"Average AGE");
+
+            while(rs.next()) {
+                String city = rs.getString(1);
+                String minAge = rs.getString(2);
+
+                System.out.println( city+ "      " + minAge);
+            }
+
+            rs.close();
+            stmt.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void donorTableSetup() {
         // If a director table already exists, must get rid of it first
         dropTableIfExists("donor");
@@ -717,6 +763,24 @@ public class DatabaseHandler {
 
         Help help1 = new Help(123456,123456);
         insertHelp(help1);
+        Help help2 = new Help(123456,123457);
+        insertHelp(help2);
+        Help help3 = new Help(123456,123458);
+        insertHelp(help3);
+        Help help4 = new Help(123456,123459);
+        insertHelp(help4);
+        Help help5 = new Help(123456,123451);
+        insertHelp(help5);
+        Help help6 = new Help(123456,123452);
+        insertHelp(help6);
+        Help help7 = new Help(123456,123453);
+        insertHelp(help7);
+        Help help8 = new Help(123456,123454);
+        insertHelp(help8);
+        Help help9 = new Help(123456,123455);
+        insertHelp(help9);
+        Help help10 = new Help(123456,123416);
+        insertHelp(help10);
     }
     public void insertHelp(Help help) {
         try {

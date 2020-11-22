@@ -217,7 +217,9 @@ public class NGO implements LoginDelegate {
     public void projectInfo(String option) {
         databaseHandler.projectInfo(option);
     }
-
+    public void getBeneficiaryCityAndMinAge(int project_id, int age) {
+        databaseHandler.getBeneficiaryCityAndMinAge(project_id, age);
+    }
 
 
     public void getVolunteersInfo(String dcity, int project_id) { databaseHandler.getVolunteersInfo(dcity, project_id); }

@@ -167,9 +167,9 @@ public class DatabaseHandler {
         ArrayList<Volunteer> result = new ArrayList<Volunteer>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM project p, volunteer v, workOn w, " +
-                    "WHERE v.volunteer_id= w.volunteer and v.project_id = w.project_id and project_id=" +project_id+ "and p.city=" +dCity +
-                    ",GROUP BY project_id");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM project p, volunteer v, workon w, " +
+                    "WHERE v.volunteer_id= w.volunteer and v.project_id = w.project_id and v.project_id=" +project_id+ "and p.city=" +dCity +
+                    ",GROUP BY v.project_id");
 
 
             while(rs.next()) {
@@ -589,7 +589,7 @@ public class DatabaseHandler {
     // workOn table operations
     public void workOnTableSetup() {
         // If a fund table already exists, must get rid of it first
-        dropTableIfExists("workon");
+        dropTableIfExists("workOn");
 
         try {
             // The SQL script to create the table

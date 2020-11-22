@@ -167,7 +167,7 @@ public class DatabaseHandler {
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM project p, volunteer v, workOn w, " +
-                    "WHERE v.project_id=w.project_id and project_id=" +project_id+ "and p.city=" +dCity +
+                    "WHERE v.project_id = w.project_id and project_id=" +project_id+ "and p.city=" +dCity +
                     ",GROUP BY project_id");
 
 

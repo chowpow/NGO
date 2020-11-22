@@ -130,6 +130,62 @@ public class DatabaseHandler {
         }
     }
 
+    //Volunteer Division 1
+    public Project[] getVolunteerInfoDivision1() {
+
+        ArrayList<Project> result = new ArrayList<Project>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT project_id FROM project P WHERE NOT EXISTS ((SELECT V.volunteer_id FROM volunteer V) EXCEPT (SELECT W.volunteer_id FROM workon W WHERE W.project_id = P.project_id))");
+
+
+            while(rs.next()) {
+                Project model = new Project(rs.getInt("project_id"),
+                        " ",
+                        0,
+                        " ");
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+
+        return result.toArray(new Project[result.size()]);
+
+    }
+
+
+    //Volunteer Division 2
+    public Volunteer[] getVolunteerInfoDivision2() {
+
+        ArrayList<Volunteer> result = new ArrayList<Volunteer>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT volunteer_id, v_name FROM volunteer V WHERE NOT EXISTS ((SELECT P.project_id FROM project P) EXCEPT (select W.project_id FROM workon W WHERE W.vid = V.vid))");
+
+
+            while(rs.next()) {
+                Volunteer model = new Volunteer(rs.getInt("volunteer_id"),
+                        " ",
+                        rs.getString("v_name"),
+                        0,
+                        " ",
+                        " ");
+                result.add(model);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+
+        return result.toArray(new Volunteer[result.size()]);
+
+    }
+
     // Given a volunteer id, delete the volunteer corresponding with that vid
     public void deleteVolunteer(int vid) {
         try {

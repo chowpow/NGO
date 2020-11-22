@@ -78,7 +78,8 @@ public class UserInput {
             System.out.println("2. Delete Volunteer");
             System.out.println("3. Group Volunteers by City and Project");
             System.out.println("4. Find all volunteers who are currently assigned to a project or lead by a director");
-            System.out.println("5. Quit");
+            System.out.println("5. Find projects worked on by all volunteers or find volunteers who worked on all projects");
+            System.out.println("6. Quit");
             System.out.println("Choose one of the above options");
 
             choice = readInt();
@@ -97,6 +98,10 @@ public class UserInput {
                     case 4:
                         handleVolunteerJoin();
                     case 5:
+                        handleVolunteerDivision();
+
+
+                    case 6:
                         break;
                     default:
                         System.out.println("Not a valid option");
@@ -104,6 +109,42 @@ public class UserInput {
                 }
             }
 
+
+        }
+
+    }
+
+
+    private void handleVolunteerDivision() {
+
+        bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        int choice = INVALID_INPUT;
+
+
+        while (choice != 3) {
+            System.out.println("1. Find projects worked on by all volunteers");
+            System.out.println("2. Find volunteers who worked on all projects");
+            System.out.println("3. Quit");
+            System.out.println("Choose one of the above options");
+
+            choice = readInt();
+
+            if (choice != INVALID_INPUT) {
+                switch (choice) {
+                    case 1:
+                        ngo.volunteerDivision1(); //project worked on by ALL volunteers
+                        break;
+                    case 2:
+                        ngo.volunteerDivision2(); // Volunteer who worked on all projects
+                        break;
+                    case 3:
+                        quit();
+                        break;
+                    default:
+                        System.out.println("Not a valid option");
+                        break;
+                }
+            }
 
         }
 

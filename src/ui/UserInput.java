@@ -77,6 +77,7 @@ public class UserInput {
             System.out.println("1. Insert Volunteer");
             System.out.println("2. Delete Volunteer");
             System.out.println("3. Group Volunteers by City and Project");
+            System.out.println("4. Find all volunteers who are currently assigned to a project or lead by a director");
             System.out.println("5. Quit");
             System.out.println("Choose one of the above options");
 
@@ -93,6 +94,8 @@ public class UserInput {
                     case 3:
                         handleVolunteersInfo();
                         break;
+                    case 4:
+                        handleVolunteerJoin();
                     case 5:
                         break;
                     default:
@@ -104,6 +107,40 @@ public class UserInput {
 
         }
 
+    }
+
+    private void handleVolunteerJoin() {
+        bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        int choice = INVALID_INPUT;
+
+
+        while (choice != 3) {
+            System.out.println("1. Find all volunteers assigned to a project");
+            System.out.println("2. Find all volunteers lead by a director");
+            System.out.println("3. Quit");
+            System.out.println("Choose one of the above options");
+
+            choice = readInt();
+
+            if (choice != INVALID_INPUT) {
+                switch (choice) {
+                    case 1:
+                        ngo.volunteerJoin1(); //join with workOn
+                        break;
+                    case 2:
+                        ngo.volunteerJoin2(); // join with leads
+                        break;
+                    case 3:
+                        quit();
+                        break;
+                    default:
+                        System.out.println("Not a valid option");
+                        break;
+                }
+            }
+
+
+        }
     }
 
     // volunteer query methods
@@ -191,7 +228,7 @@ public class UserInput {
             System.out.println("3. Update Director password");
             System.out.println("4. Get Director Info (SELECT)");
             System.out.println("5. Get Director Info (PROJECTION)");
-            System.out.println("6. Find the name and phone number of all directors who are currently leading a team");
+            System.out.println("6. Find the name and phone number of all directors who are currently leading a team (JOIN)");
 
 
             System.out.println("7. Quit");
@@ -221,10 +258,10 @@ public class UserInput {
                         ngo.joinDirector();
                         break;
 
-
                     case 7:
                         quit();
                         break;
+
                     default:
                         System.out.println("Not a valid option");
                         break;

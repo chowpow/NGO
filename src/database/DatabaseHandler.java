@@ -105,6 +105,10 @@ public class DatabaseHandler {
         insertVolunteer(volunteer2);
         Volunteer volunteer3 = new Volunteer(123458, "23425dsdg", "David Smith", 3215569, "567 Main Mall", "Montreal");
         insertVolunteer(volunteer3);
+        Volunteer volunteer4 = new Volunteer(123459, "23426dsdg", "Paulina Payne", 3215561, "567 Main Mall", "Vancouver");
+        insertVolunteer(volunteer4);
+        Volunteer volunteer5 = new Volunteer(123451, "23426dsdg", "Mathias Smith", 3215563, "567 Main Mall", "Vancouver");
+        insertVolunteer(volunteer5);
     }
 
     // A volunteer instance is passed to the method, uses getters to grab all the attributes and sets them to a new tuple in the table
@@ -198,7 +202,95 @@ public class DatabaseHandler {
 
     }
 
+    public Volunteer[] getVolunteerInfoJoin1() {
+
+        ArrayList<Volunteer> result = new ArrayList<Volunteer>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT v_name, v_phone FROM volunteer V, workon W WHERE V.volunteer_id = W.volunteer_id");
+
+
+            while(rs.next()) {
+                Volunteer model = new Volunteer( 0,
+                        " ",
+                        rs.getString("v_name"),
+                        rs.getInt("v_phone"),
+                        " ",
+                        " ");
+                result.add(model);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+
+        return result.toArray(new Volunteer[result.size()]);
+
+    }
+
+
+
+    public Volunteer[] getVolunteerInfoJoin2() {
+
+        ArrayList<Volunteer> result = new ArrayList<Volunteer>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT v_name, v_phone FROM volunteer V, leads L WHERE V.volunteer_id = L.volunteer_id");
+
+
+            while(rs.next()) {
+                Volunteer model = new Volunteer( 0,
+                        " ",
+                        rs.getString("v_name"),
+                        rs.getInt("v_phone"),
+                        " ",
+                        " ");
+                result.add(model);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+
+        return result.toArray(new Volunteer[result.size()]);
+
+    }
+
+
+
 // lol
+
+    public Director[] getDirectorInfo(String dCity) {
+        ArrayList<Director> result = new ArrayList<Director>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM director WHERE d_city =" +dCity );
+
+
+            while(rs.next()) {
+                Director model = new Director(rs.getInt("director_id"),
+                        rs.getString("d_password"),
+                        rs.getString("d_name"),
+                        rs.getInt("d_phone"),
+                        rs.getString("d_address"),
+                        rs.getString("d_city"));
+                result.add(model);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+
+        return result.toArray(new Director[result.size()]);
+
+    }
+
     public Director[] getDirectorInfoProj() {
         ArrayList<Director> result = new ArrayList<Director>();
         try {
@@ -489,32 +581,7 @@ public class DatabaseHandler {
             e.printStackTrace();
         }
     }
-    public Director[] getDirectorInfo(String dCity) {
-        ArrayList<Director> result = new ArrayList<Director>();
-        try {
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM director WHERE d_city =" +dCity );
 
-
-            while(rs.next()) {
-                Director model = new Director(rs.getInt("director_id"),
-                        rs.getString("d_password"),
-                        rs.getString("d_name"),
-                        rs.getInt("d_phone"),
-                        rs.getString("d_address"),
-                        rs.getString("d_city"));
-                result.add(model);
-            }
-
-            rs.close();
-            stmt.close();
-        } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-        }
-
-        return result.toArray(new Director[result.size()]);
-
-    }
 
     // leads table operations
     public void leadsTableSetup() {
@@ -645,6 +712,10 @@ public class DatabaseHandler {
         insertWorkOn(workOn2);
         WorkOn workOn3 = new WorkOn(123456,123458);
         insertWorkOn(workOn3);
+        WorkOn workOn4 = new WorkOn(123456,123459);
+        insertWorkOn(workOn4);
+        WorkOn workOn5 = new WorkOn(123456,123451);
+        insertWorkOn(workOn5);
     }
     public void insertWorkOn(WorkOn workOn) {
         try {

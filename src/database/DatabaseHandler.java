@@ -164,7 +164,11 @@ public class DatabaseHandler {
 
         // 1 Sample entry is created and inserted to the table
         Director director1 = new Director(111111, "23423dsdggg", "jeff", 8901311, "568 Main Mall", "Vancouver");
+        Director director2 = new Director(222222, "23423dsdggg", "Geoff", 7771311, "669 Main Mall", "Vancouver");
+        Director director3 = new Director(333333, "23423dsdggg", "Doc Rivers", 6661311, "669 East Mall", "Saskatoon");
         insertDirector(director1);
+        insertDirector(director2);
+        insertDirector(director3);
     }
 
     public void getVolunteersInfo(String dCity,Integer project_id) {
@@ -204,6 +208,36 @@ public class DatabaseHandler {
 
             while(rs.next()) {
                 Director model = new Director(rs.getInt("director_id"),
+                        " ",
+                        rs.getString("d_name"),
+                        rs.getInt("d_phone"),
+                        " ",
+                        " ");
+                result.add(model);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+
+        return result.toArray(new Director[result.size()]);
+
+    }
+
+
+    //done
+    public Director[] getDirectorInfoJoin() {
+
+        ArrayList<Director> result = new ArrayList<Director>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT d_name, d_phone FROM director D, leads L WHERE D.director_id = L.director_id");
+
+
+            while(rs.next()) {
+                Director model = new Director( 0,
                         " ",
                         rs.getString("d_name"),
                         rs.getInt("d_phone"),
@@ -279,7 +313,6 @@ public class DatabaseHandler {
             rollbackConnection();
         }
     }
-
 
 
     // method to drop tables if they already exist, name of the table needing to be dropped is the parameter
@@ -502,8 +535,8 @@ public class DatabaseHandler {
 
         // 1 Sample entry is created and inserted to the table
 
-//        Leads leads1 = new Leads(111111,123456);
-//        insertLeads(leads1);
+        Leads leads1 = new Leads(111111,123456);
+        insertLeads(leads1);
     }
     public void insertLeads(Leads leads) {
         try {

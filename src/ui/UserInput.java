@@ -191,9 +191,10 @@ public class UserInput {
             System.out.println("3. Update Director password");
             System.out.println("4. Get Director Info (SELECT)");
             System.out.println("5. Get Director Info (PROJECTION)");
+            System.out.println("6. Find the name and phone number of all directors who are currently leading a team");
 
 
-            System.out.println("5. Quit");
+            System.out.println("7. Quit");
             System.out.println("Choose one of the above options");
 
             choice = readInt();
@@ -215,6 +216,14 @@ public class UserInput {
 
                     case 5:
                         ngo.projectionDirector();
+                        break;
+                    case 6:
+                        ngo.joinDirector();
+                        break;
+
+
+                    case 7:
+                        quit();
                         break;
                     default:
                         System.out.println("Not a valid option");

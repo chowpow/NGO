@@ -103,26 +103,26 @@ public class NGO implements LoginDelegate {
 
 
     }
-//    public void aggregationVolunteers(String dCity, Integer project_id) {
-//        Volunteer[] models = databaseHandler.getVolunteersInfo(dCity,project_id);
-//
-//        for (int i = 0; i < models.length; i++) {
-//            Volunteer model = models[i];
-//
-//            // simplified output formatting; truncation may occur
-//            System.out.printf("%-10.10s", model.getVolunteerID());
-//            System.out.printf("%-20.20s", model.getPassword());
-//            System.out.printf("%-20.20s", model.getName());
-//            System.out.printf("%-15.15s", model.getPhoneNumber());
-//            System.out.printf("%-20.20s", model.getAddress());
-//            System.out.printf("%-15.15s", model.getCity());
-//
-//
-//
-//            System.out.println();
-//
-//        }
-//    }
+    public void aggregationVolunteers(String dCity, Integer project_id) {
+        Volunteer[] models = databaseHandler.getVolunteersInfo(dCity,project_id);
+
+        for (int i = 0; i < models.length; i++) {
+            Volunteer model = models[i];
+
+            // simplified output formatting; truncation may occur
+            System.out.printf("%-10.10s", model.getVolunteerID());
+            System.out.printf("%-20.20s", model.getPassword());
+            System.out.printf("%-20.20s", model.getName());
+            System.out.printf("%-15.15s", model.getPhoneNumber());
+            System.out.printf("%-20.20s", model.getAddress());
+            System.out.printf("%-15.15s", model.getCity());
+
+
+
+            System.out.println();
+
+        }
+    }
     public void projectionDirector() {
         Director[] models = databaseHandler.getDirectorInfoProj();
 
@@ -141,8 +141,24 @@ public class NGO implements LoginDelegate {
 
     }
 
+    public void joinDirector() {
+        Director[] models = databaseHandler.getDirectorInfoJoin();
 
-    public void getVolunteersInfo(String dcity, int project_id) { databaseHandler.getVolunteersInfo(dcity, project_id); }
+        for (int i = 0; i < models.length; i++) {
+            Director model = models[i];
+
+            // simplified output formatting; truncation may occur
+        //    System.out.printf("%-10.10s", model.getDirectorID());
+            System.out.printf("%-20.20s", model.getName());
+            System.out.printf("%-15.15s", model.getPhoneNumber());
+
+
+            System.out.println();
+
+        }
+
+    }
+
     public void insertProject(Project project) { databaseHandler.insertProject(project); }
     public void deleteProject(int pid) {
         databaseHandler.deleteProject(pid);

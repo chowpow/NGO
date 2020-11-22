@@ -160,7 +160,11 @@ public class DatabaseHandler {
 
         // 1 Sample entry is created and inserted to the table
         Director director1 = new Director(111111, "23423dsdggg", "jeff", 8901311, "568 Main Mall", "Vancouver");
+        Director director2 = new Director(222222, "23423dsdggg", "Geoff", 7771311, "669 Main Mall", "Vancouver");
+        Director director3 = new Director(333333, "23423dsdggg", "Doc Rivers", 6661311, "669 East Mall", "Saskatoon");
         insertDirector(director1);
+        insertDirector(director2);
+        insertDirector(director3);
     }
 
     public Volunteer[] getVolunteersInfo(String dCity,Integer project_id) {
@@ -227,7 +231,7 @@ public class DatabaseHandler {
         ArrayList<Director> result = new ArrayList<Director>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT d_name, d_phone FROM director D, project P WHERE D.director_id = P.directorid");
+            ResultSet rs = stmt.executeQuery("SELECT d_name, d_phone FROM director D, leads L WHERE D.director_id = L.director_id");
 
 
             while(rs.next()) {
@@ -530,8 +534,8 @@ public class DatabaseHandler {
 
         // 1 Sample entry is created and inserted to the table
 
-//        Leads leads1 = new Leads(111111,123456);
-//        insertLeads(leads1);
+        Leads leads1 = new Leads(111111,123456);
+        insertLeads(leads1);
     }
     public void insertLeads(Leads leads) {
         try {

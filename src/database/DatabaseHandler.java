@@ -197,11 +197,11 @@ public class DatabaseHandler {
 
             while(rs.next()) {
                 Director model = new Director(rs.getInt("director_id"),
-                        rs.getString("d_password"),
-                        rs.getString(" "),
-                        rs.getInt(0),
-                        rs.getString(" "),
-                        rs.getString(" "));
+                        " ",
+                        rs.getString("d_name"),
+                        rs.getInt("d_phone"),
+                        " ",
+                        " ");
                 result.add(model);
             }
 

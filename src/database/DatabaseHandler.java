@@ -144,6 +144,7 @@ public class DatabaseHandler {
                         " ",
                         0,
                         " ");
+                result.add(model);
             }
 
             rs.close();

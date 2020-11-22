@@ -176,7 +176,6 @@ public class DatabaseHandler {
     }
 
     public void getVolunteersInfo(String dCity,Integer project_id) {
-        ArrayList<Volunteer> result = new ArrayList<Volunteer>();
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT count(v.volunteer_id), v.v_name,v.v_phone,v.v_city" +
@@ -185,13 +184,13 @@ public class DatabaseHandler {
                     " and v.v_city=" +dCity+
                     " GROUP BY v.volunteer_id,v.v_name,v.v_phone,v.v_city");
 
-
+            System.out.println("Count Name" + "            " + "Phone Number City");
             while(rs.next()) {
                 int count = rs.getInt(1);
                 String name =rs.getString(2);
                 int phoneNumber = rs.getInt(3);
                 String city =rs.getString(4);
-                System.out.println(count + " " + name + " " + phoneNumber+ " " + city);
+                System.out.println(count + "     " + name + " " + phoneNumber+ " " + city);
             }
 
             rs.close();

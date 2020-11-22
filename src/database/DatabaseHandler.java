@@ -203,6 +203,34 @@ public class DatabaseHandler {
     }
 
 // lol
+
+    public Director[] getDirectorInfo(String dCity) {
+        ArrayList<Director> result = new ArrayList<Director>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM director WHERE d_city =" +dCity );
+
+
+            while(rs.next()) {
+                Director model = new Director(rs.getInt("director_id"),
+                        rs.getString("d_password"),
+                        rs.getString("d_name"),
+                        rs.getInt("d_phone"),
+                        rs.getString("d_address"),
+                        rs.getString("d_city"));
+                result.add(model);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+
+        return result.toArray(new Director[result.size()]);
+
+    }
+
     public Director[] getDirectorInfoProj() {
         ArrayList<Director> result = new ArrayList<Director>();
         try {
@@ -493,32 +521,7 @@ public class DatabaseHandler {
             e.printStackTrace();
         }
     }
-    public Director[] getDirectorInfo(String dCity) {
-        ArrayList<Director> result = new ArrayList<Director>();
-        try {
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM director WHERE d_city =" +dCity );
 
-
-            while(rs.next()) {
-                Director model = new Director(rs.getInt("director_id"),
-                        rs.getString("d_password"),
-                        rs.getString("d_name"),
-                        rs.getInt("d_phone"),
-                        rs.getString("d_address"),
-                        rs.getString("d_city"));
-                result.add(model);
-            }
-
-            rs.close();
-            stmt.close();
-        } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-        }
-
-        return result.toArray(new Director[result.size()]);
-
-    }
 
     // leads table operations
     public void leadsTableSetup() {

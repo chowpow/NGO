@@ -175,7 +175,7 @@ public class DatabaseHandler {
         ArrayList<Volunteer> result = new ArrayList<Volunteer>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT v.volunteer_id, v.v_name,v.v_phone,v.v_city" +
+            ResultSet rs = stmt.executeQuery("SELECT count(v.volunteer_id), v.v_name,v.v_phone,v.v_city" +
                     " FROM project p, volunteer v, workon w " +
                     " WHERE v.volunteer_id= w.volunteer_id and p.project_id = w.project_id " +"and w.project_id ="+project_id+
                     " and v.v_city=" +dCity+
@@ -183,11 +183,11 @@ public class DatabaseHandler {
 
 
             while(rs.next()) {
-                int ID = rs.getInt(1);
+                int count = rs.getInt(1);
                 String name =rs.getString(2);
                 int phoneNumber = rs.getInt(3);
                 String city =rs.getString(4);
-                System.out.println(ID + " " + name + " " + phoneNumber+ " " + city);
+                System.out.println(count + " " + name + " " + phoneNumber+ " " + city);
             }
 
             rs.close();

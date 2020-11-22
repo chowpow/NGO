@@ -219,6 +219,8 @@ public class DatabaseHandler {
 
     }
 
+
+    //done
     public Director[] getDirectorInfoJoin() {
 
         ArrayList<Director> result = new ArrayList<Director>();

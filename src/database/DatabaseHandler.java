@@ -219,6 +219,34 @@ public class DatabaseHandler {
 
     }
 
+    public Director[] getDirectorInfoJoin() {
+
+        ArrayList<Director> result = new ArrayList<Director>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT d_name, d_phone FROM director D, project P WHERE D.director_id = P.directorid");
+
+
+            while(rs.next()) {
+                Director model = new Director( 0,
+                        " ",
+                        rs.getString("d_name"),
+                        rs.getInt("d_phone"),
+                        " ",
+                        " ");
+                result.add(model);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+
+        return result.toArray(new Director[result.size()]);
+
+    }
+
 
     public void insertDirector(Director director) {
         try {

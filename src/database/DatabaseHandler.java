@@ -191,7 +191,7 @@ public class DatabaseHandler {
 
     }
 
-
+// lol
     public Director[] getDirectorInfoProj() {
         ArrayList<Director> result = new ArrayList<Director>();
         try {

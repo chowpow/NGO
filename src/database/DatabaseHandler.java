@@ -482,6 +482,28 @@ public class DatabaseHandler {
             e.printStackTrace();
         }
     }
+
+    public void projectInfo(String option) {
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT COUNT(project_id)," + option + " FROM project GROUP BY " + option);
+            System.out.println("Total Count " + option);
+
+            while(rs.next()) {
+                int count = rs.getInt(1);
+                String column = rs.getString(2);
+
+                System.out.println(count + " " + column);
+            }
+
+            rs.close();
+            stmt.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void beneficiaryTableSetup() {
         this.dropTableIfExists("beneficiary");
 

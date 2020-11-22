@@ -6,6 +6,8 @@ import model.*;
 import ui.LoginOra;
 import ui.UserInput;
 
+import java.sql.Statement;
+
 // Main class that runs everything
 public class NGO implements LoginDelegate {
     // contains a LoginWindow and a Database Handler
@@ -175,6 +177,13 @@ public class NGO implements LoginDelegate {
         }
 
     }
+
+    public void projectInfo(String option) {
+        databaseHandler.projectInfo(option);
+    }
+
+
+
     public void getVolunteersInfo(String dcity, int project_id) { databaseHandler.getVolunteersInfo(dcity, project_id); }
     public void insertProject(Project project) { databaseHandler.insertProject(project); }
     public void deleteProject(int pid) {
@@ -188,4 +197,6 @@ public class NGO implements LoginDelegate {
     public void deleteDonor(int did) {
         databaseHandler.deleteDonor(did);
     }
+
+
 }

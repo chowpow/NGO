@@ -362,6 +362,7 @@ public class UserInput {
         while (choice != 5) {
             System.out.println("1. Insert Project");
             System.out.println("2. Delete Project");
+            System.out.println("3. Show Project Info");
 
             System.out.println("5. Quit");
             System.out.println("Choose one of the above options");
@@ -375,6 +376,9 @@ public class UserInput {
                         break;
                     case 2:
                         handleProjectDelete();
+                        break;
+                    case 3:
+                        handleProjectInfo();
                         break;
 
                     case 5:
@@ -427,6 +431,40 @@ public class UserInput {
             if (pid != INVALID_INPUT) {
                 ngo.deleteProject(pid);
             }
+        }
+    }
+
+    private void handleProjectInfo() {
+        bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        int choice = INVALID_INPUT;
+
+
+        while (choice != 3) {
+            System.out.println("1. Find the number of projects for every budget");
+            System.out.println("2. Find the number of projects for each duration");
+            System.out.println("3. Quit");
+            System.out.println("Choose one of the above options");
+
+            choice = readInt();
+
+            if (choice != INVALID_INPUT) {
+                switch (choice) {
+                    case 1:
+                        ngo.projectInfo("budget"); //join with workOn
+                        break;
+                    case 2:
+                        ngo.projectInfo("duration"); // join with leads
+                        break;
+                    case 3:
+                        quit();
+                        break;
+                    default:
+                        System.out.println("Not a valid option");
+                        break;
+                }
+            }
+
+
         }
     }
     private void handleBeneficiaryOperation() {

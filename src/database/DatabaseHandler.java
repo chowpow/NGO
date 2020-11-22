@@ -55,6 +55,7 @@ public class DatabaseHandler {
         volunteerTableSetup();
         directorTableSetup();
         projectTableSetup();
+        beneficiaryTableSetup();
         leadsTableSetup();
 //        helpTableSetup();
 //        fundTableSetup();
@@ -520,8 +521,8 @@ public class DatabaseHandler {
 
         // 1 Sample entry is created and inserted to the table
 
-//        WorkOn workOn1 = new WorkOn(123456,123456);
-//        insertWorkOn(workOn1);
+        WorkOn workOn1 = new WorkOn(123456,123456);
+        insertWorkOn(workOn1);
     }
     public void insertWorkOn(WorkOn workOn) {
         try {

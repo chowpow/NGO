@@ -167,7 +167,7 @@ public class DatabaseHandler {
         ArrayList<Volunteer> result = new ArrayList<Volunteer>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM project p, volunteer v, workon w, " +
+            ResultSet rs = stmt.executeQuery("SELECT * FROM project p, volunteer v, workOn w, " +
                     "WHERE v.volunteer_id= w.volunteer and v.project_id = w.project_id and v.project_id=" +project_id+ "and p.city=" +dCity +
                     ",GROUP BY v.project_id");
 

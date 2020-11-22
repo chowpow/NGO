@@ -202,10 +202,10 @@ public class DatabaseHandler {
             while(rs.next()) {
                 Director model = new Director(rs.getInt("director_id"),
                         rs.getString("d_password"),
-                        rs.getString(" "),
+                        " ",
                         rs.getInt("d_phone"),
-                        rs.getString(" "),
-                        rs.getString(" "));
+                        " ",
+                        " ");
                 result.add(model);
             }
 

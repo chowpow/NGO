@@ -106,7 +106,7 @@ public class NGO implements LoginDelegate {
 
 
     }
-    public void selectionVolunteers(String dCity, Integer project_id) {
+    public void aggregationVolunteers(String dCity, Integer project_id) {
         Volunteer[] models = databaseHandler.getVolunteersInfo(dCity,project_id);
 
         for (int i = 0; i < models.length; i++) {
@@ -125,8 +125,6 @@ public class NGO implements LoginDelegate {
             System.out.println();
 
         }
-
-
     }
     public void projectionDirector() {
         Director[] models = databaseHandler.getDirectorInfoProj();

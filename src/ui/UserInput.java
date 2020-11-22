@@ -75,7 +75,7 @@ public class UserInput {
         while (choice != 5) {
             System.out.println("1. Insert Volunteer");
             System.out.println("2. Delete Volunteer");
-
+            System.out.println("3. Group Volunteers by City and Project");
             System.out.println("5. Quit");
             System.out.println("Choose one of the above options");
 
@@ -88,6 +88,9 @@ public class UserInput {
                         break;
                     case 2:
                         handleVolunteerDelete();
+                        break;
+                    case 3:
+                        handleVolunteersInfo();
                         break;
                     case 5:
                         break;
@@ -160,7 +163,23 @@ public class UserInput {
     }
 
 
+    private void handleVolunteersInfo() {
+        String dCity = null;
+        int project_id = 000000;
 
+        while (project_id == INVALID_INPUT || (project_id<= 100000 && project_id > 999999 )) {
+            System.out.println("Please enter the project_id for the volunteers:");
+            project_id = readInt();
+            project_id = project_id;
+        }
+        while (dCity == null ) {
+            System.out.println("Please enter the city for the volunteers :");
+            dCity = readString().trim();
+            dCity = ("'"+dCity+"'");
+        }
+
+        ngo.aggregationVolunteers(dCity, project_id);
+    }
     private void handleDirectorOperation() {
         bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         int choice = INVALID_INPUT;

@@ -136,7 +136,7 @@ public class DatabaseHandler {
         ArrayList<Project> result = new ArrayList<Project>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT project_id FROM project P WHERE NOT EXISTS ((SELECT V.volunteer_id FROM volunteer V) EXCEPT (SELECT W.volunteer_id FROM workon W WHERE W.project_id = P.project_id))");
+            ResultSet rs = stmt.executeQuery("SELECT P.project_id FROM project P WHERE NOT EXISTS ((SELECT V.volunteer_id FROM volunteer V) MINUS (SELECT W.volunteer_id FROM workon W WHERE W.project_id = P.project_id))");
 
 
             while(rs.next()) {
@@ -164,7 +164,7 @@ public class DatabaseHandler {
         ArrayList<Volunteer> result = new ArrayList<Volunteer>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT volunteer_id, v_name FROM volunteer V WHERE NOT EXISTS ((SELECT P.project_id FROM project P) EXCEPT (select W.project_id FROM workon W WHERE W.volunteer_id = V.volunteer_id))");
+            ResultSet rs = stmt.executeQuery("SELECT V.volunteer_id, V.v_name FROM volunteer V WHERE NOT EXISTS ((SELECT P.project_id FROM project P) MINUS (select W.project_id FROM workon W WHERE W.volunteer_id = V.volunteer_id))");
 
 
             while(rs.next()) {

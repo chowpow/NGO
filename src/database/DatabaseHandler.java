@@ -101,6 +101,10 @@ public class DatabaseHandler {
         // 1 Sample entry is created and inserted to the table
         Volunteer volunteer1 = new Volunteer(123456, "23423dsdg", "Paul Pogba", 3215567, "567 Main Mall", "Vancouver");
         insertVolunteer(volunteer1);
+        Volunteer volunteer2 = new Volunteer(123457, "23424dsdg", "Abigail Ayala", 3215568, "567 Main Mall", "Toronto");
+        insertVolunteer(volunteer2);
+        Volunteer volunteer3 = new Volunteer(123458, "23425dsdg", "David Smith", 3215569, "567 Main Mall", "Montreal");
+        insertVolunteer(volunteer3);
     }
 
     // A volunteer instance is passed to the method, uses getters to grab all the attributes and sets them to a new tuple in the table
@@ -163,7 +167,7 @@ public class DatabaseHandler {
         insertDirector(director1);
     }
 
-    public Volunteer[] getVolunteersInfo(String dCity,Integer project_id) {
+    public void getVolunteersInfo(String dCity,Integer project_id) {
         ArrayList<Volunteer> result = new ArrayList<Volunteer>();
         try {
             Statement stmt = connection.createStatement();
@@ -175,13 +179,11 @@ public class DatabaseHandler {
 
 
             while(rs.next()) {
-                Volunteer model = new Volunteer (rs.getInt("volunteer_id"),
-                        rs.getString("v_password"),
-                        rs.getString("v_name"),
-                        rs.getInt("v_phone"),
-                        rs.getString("v_address"),
-                        rs.getString("v_city"));
-                result.add(model);
+                int ID = rs.getInt(1);
+                String name =rs.getString(2);
+                int phoneNumber = rs.getInt(3);
+                String city =rs.getString(4);
+                System.out.println(ID + " " + name + " " + phoneNumber+ " " + city);
             }
 
             rs.close();
@@ -189,8 +191,6 @@ public class DatabaseHandler {
         } catch (SQLException e) {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
         }
-
-        return result.toArray(new Volunteer[result.size()]);
 
     }
 
@@ -608,6 +608,10 @@ public class DatabaseHandler {
 
         WorkOn workOn1 = new WorkOn(123456,123456);
         insertWorkOn(workOn1);
+        WorkOn workOn2 = new WorkOn(123456,123457);
+        insertWorkOn(workOn2);
+        WorkOn workOn3 = new WorkOn(123456,123458);
+        insertWorkOn(workOn3);
     }
     public void insertWorkOn(WorkOn workOn) {
         try {

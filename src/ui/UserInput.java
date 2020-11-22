@@ -179,7 +179,7 @@ public class UserInput {
             project_id = readInt();
             project_id = project_id;
         }
-        ngo.aggregationVolunteers(dCity, project_id);
+        ngo.getVolunteersInfo(dCity, project_id);
     }
     private void handleDirectorOperation() {
         bufferedReader = new BufferedReader(new InputStreamReader(System.in));

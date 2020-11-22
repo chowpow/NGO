@@ -66,6 +66,7 @@ public class DatabaseHandler {
 //        acquireTableSetup();
 //        collectTableSetup();
         beneficiaryTableSetup();
+        donorTableSetup();
 
     }
 
@@ -167,7 +168,7 @@ public class DatabaseHandler {
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM project p, volunteer v, workOn w, " +
-                    "WHERE v.project_id = w.project_id and project_id=" +project_id+ "and p.city=" +dCity +
+                    "WHERE v.volunteer_id= w.volunteer and v.project_id = w.project_id and project_id=" +project_id+ "and p.city=" +dCity +
                     ",GROUP BY project_id");
 
 
@@ -426,12 +427,12 @@ public class DatabaseHandler {
     public void insertDonor(Donor donor) {
         try {
             // parameterIndices correspond to the positions of the attributes (ex volunteer id is the first attribute)
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO director VALUES (?,?,?)");
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO donor VALUES (?,?,?)");
             ps.setInt(1, donor.getDonorID());
             ps.setString(2, donor.getDonorName());
             ps.setInt(3, donor.getPhoneNumber());
             ps.executeUpdate();
-            connection.commit();
+            this.connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
         }

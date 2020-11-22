@@ -26,13 +26,14 @@ public class UserInput {
         bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         int choice = INVALID_INPUT;
 
-        while (choice != 5) {
+        while (choice != 6) {
             System.out.println("Which table would you like to work on");
             System.out.println("1. Volunteer");
             System.out.println("2. Director");
             System.out.println("3. Project");
             System.out.println("4. Beneficiary");
-            System.out.println("5. Quit");
+            System.out.println("5. Donor");
+            System.out.println("6. Quit");
             System.out.println("Choose one of the above options");
 
             choice = readInt();
@@ -52,6 +53,9 @@ public class UserInput {
                         handleBeneficiaryOperation();
                         break;
                     case 5:
+                        handleDonorOperation();
+                        break;
+                    case 6:
                         quit();
                         break;
                     default:

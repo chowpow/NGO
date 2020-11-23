@@ -252,7 +252,7 @@ public class UserInput {
             dCity = readString().trim();
             dCity = ("'"+dCity+"'");
         }
-        while (project_id == INVALID_INPUT || (project_id<= 100000 && project_id > 999999 )) {
+        while (project_id == INVALID_INPUT || (project_id<= 100000 || project_id > 999999 )) {
             System.out.println("Please enter the project_id for the volunteers:");
             project_id = readInt();
             project_id = project_id;
@@ -264,12 +264,12 @@ public class UserInput {
         int project_id = INVALID_INPUT;
         int age = INVALID_INPUT;
 
-        while (project_id == INVALID_INPUT || (project_id<= 100000 && project_id > 999999 )) {
+        while (project_id == INVALID_INPUT || (project_id<= 100000 || project_id > 999999 )) {
             System.out.println("Please enter the project_id for the selecting Beneficiary:");
             project_id = readInt();
             project_id = project_id;
         }
-        while (age == INVALID_INPUT || (project_id<= 1 && project_id > 150 )) {
+        while (age == INVALID_INPUT || (age<= 1 || age > 150 )) {
             System.out.println("Please enter the limit average age for the volunteers:");
             age = readInt();
             age = age;
@@ -363,7 +363,7 @@ public class UserInput {
         }
 
         int dPhoneNumber = INVALID_INPUT;
-        while (dPhoneNumber == INVALID_INPUT || (dPhoneNumber <= 1000000 && dPhoneNumber > 9999999)) {
+        while (dPhoneNumber == INVALID_INPUT || (dPhoneNumber <= 1000000 || dPhoneNumber > 9999999)) {
             System.out.println("Please enter the director's phone number ( 7 digits)");
             dPhoneNumber = readInt();
         }
@@ -497,36 +497,15 @@ public class UserInput {
     }
 
     private void handleProjectInfo() {
-        bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        int choice = INVALID_INPUT;
+        int amount = INVALID_INPUT;
 
-
-        while (choice != 3) {
-            System.out.println("1. Find the number of projects for every budget");
-            System.out.println("2. Find the number of projects for each duration");
-            System.out.println("3. Quit");
-            System.out.println("Choose one of the above options");
-
-            choice = readInt();
-
-            if (choice != INVALID_INPUT) {
-                switch (choice) {
-                    case 1:
-                        ngo.projectInfo("budget"); //join with workOn
-                        break;
-                    case 2:
-                        ngo.projectInfo("duration"); // join with leads
-                        break;
-                    case 3:
-                        break;
-                    default:
-                        System.out.println("Not a valid option");
-                        break;
-                }
-            }
-
-
+        while (amount == INVALID_INPUT || (amount < 0 || amount > 999999)) {
+            System.out.println("Find the budget and number projects that have a budget greater than this amount: ");
+            amount = readInt();
         }
+
+        ngo.projectInfo(amount);
+
     }
     private void handleBeneficiaryOperation() {
         bufferedReader = new BufferedReader(new InputStreamReader(System.in));

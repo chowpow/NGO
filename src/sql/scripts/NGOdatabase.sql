@@ -10,6 +10,9 @@ CREATE TABLE volunteer (
     INSERT INTO volunteer VALUES (123458, "23425dsdg", "David Smith", 3215569, "567 Main Mall", "Montreal");
     INSERT INTO volunteer VALUES (123459, "23426dsdg", "Paulina Payne", 3215561, "567 Main Mall", "Vancouver");
     INSERT INTO volunteer VALUES(123451, "23426dsdg", "Mathias Smith", 3215563, "567 Main Mall", "Vancouver");
+
+)
+
 CREATE TABLE director (
     director_id integer PRIMARY KEY,
     d_password varchar2(20) not null,
@@ -19,6 +22,7 @@ CREATE TABLE director (
     INSERT INTO director VALUES (111111, "23423dsdggg", "jeff", 8901311, "568 Main Mall", "Vancouver");
     INSERT INTO director VALUES (222222, "23423dsdggg", "Geoff", 7771311, "669 Main Mall", "Vancouver");
     INSERT INTO director VALUES (333333, "23423dsdggg", "Doc Rivers", 6661311, "669 East Mall", "Saskatoon");
+)
 
 CREATE TABLE beneficiary(
     beneficiary_id integer PRIMARY KEY,  +
@@ -37,6 +41,7 @@ CREATE TABLE beneficiary(
      INSERT INTO beneficiary VALUES (123454, "Lauren Levi", 7, 6045678, "Toronto", "V6L1X1");
      INSERT INTO beneficiary VALUES (123455, "Mirkka Puente", 35, 7765671, "Toronto", "V6L1X1");
      INSERT INTO beneficiary VALUES (123416, "John Pratt", 45, 6045674, "Montreal", "V6L1X1");
+)
 
 CREATE TABLE donor (
     donor_id integer  PRIMARY KEY ,
@@ -44,6 +49,7 @@ CREATE TABLE donor (
     phoneNumber integer);
 
     INSERT INTO donor VALUES (111111, "David Thoms", 8901311);
+)
 
 CREATE TABLE leads (
     director_id integer,
@@ -52,6 +58,7 @@ CREATE TABLE leads (
     FOREIGN KEY (volunteer_id) REFERENCES volunteer(volunteer_id) ON DELETE CASCADE);
 
     INSERT INTO leads VALUES (111111,123456);
+)
 
 CREATE TABLE help (
     project_id integer,
@@ -69,6 +76,7 @@ CREATE TABLE help (
     INSERT INTO help VALUES(123456,123454);
     INSERT INTO help VALUES(123456,123455);
     INSERT INTO help VALUES(123456,123416);
+)
 
 CREATE TABLE workon (
     project_id integer,
@@ -81,5 +89,17 @@ CREATE TABLE workon (
         INSERT INTO workon VALUES(123456,123458);
         INSERT INTO workon VALUES(123456,123459);
         INSERT INTO workon VALUES(123456,123451);
+)
+
+
+create table UPDATEDRECORD
+(
+    DIRECTORUPDATE_ID NUMBER not null
+        primary key,
+    UPDATED_PASSWORD  VARCHAR2(20),
+    OLD_PASSWORD      VARCHAR2(20),
+    UPDATE_DATE       DATE
+)
+
 
 

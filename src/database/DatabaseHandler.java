@@ -67,8 +67,11 @@ public class DatabaseHandler {
 //        collectTableSetup();
         beneficiaryTableSetup();
         donorTableSetup();
+        updatedRecordSetUp();
+        triggerSetUp();
 
     }
+
 
 
     //rollback connection for catching exceptions
@@ -80,6 +83,77 @@ public class DatabaseHandler {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
         }
     }
+
+    //updated record table
+    public void updatedRecordSetUp() {
+        //dropTableIfExists("updatedRecord");
+//        Statement statement = connection.createStatement();
+//        //ResultSet resultSet = statement.executeQuery("select table_name from user_tables");
+//        statement.execute("DROP TABLE " + "updatedRecord" + " cascade constraints");
+//
+//
+//        //resultSet.close();
+//        statement.close();
+
+
+        try {
+            Statement statement = connection.createStatement();
+            //ResultSet resultSet = statement.executeQuery("select table_name from user_tables");
+            statement.execute("DROP TABLE " + "updatedRecord" + " cascade constraints");
+
+
+            //resultSet.close();
+            statement.close();
+
+
+            // The SQL script to create the table
+            Statement statement1 = connection.createStatement();
+            statement1.executeUpdate("CREATE TABLE updatedRecord(updated_password varchar2(20) PRIMARY KEY)");
+
+            statement1.close();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    //trigger set up
+    public void triggerSetUp() {
+        //dropTableIfExists("updatedRecord");
+        try {
+             Statement statement = connection.createStatement();
+////           statement.executeUpdate("CREATE TABLE updatedRecord(updated_password varchar2(20) PRIMARY KEY)");
+////
+            statement.execute("CREATE OR REPLACE TRIGGER director_after_update " +
+                    "AFTER UPDATE ON director " +
+                    "FOR EACH ROW " +
+                    "BEGIN " +
+                    "INSERT INTO updatedRecord (updated_password) VALUES (:new.d_password); " +
+                    "END; ");
+            statement.close();
+
+//            PreparedStatement ps = connection.prepareStatement("INSERT INTO updatedRecord VALUES (?)");
+//            ps.setString(1, "hiiii");
+//            ps.executeUpdate();
+//            connection.commit();
+//
+////            PreparedStatement statement1 = connection.prepareStatement("INSERT INTO updatedRecord VALUES (?)");
+////            statement1.setString(1, "hello");
+////            statement1.executeUpdate();
+////            connection.commit();
+////            statement.close();
+////            statement1.close();
+//
+//
+//            //Statement test = connection.createStatement();
+//            //test.executeUpdate()
+//
+       }
+        catch(SQLException e){
+                e.printStackTrace();
+            }
+        }
+
 
     // volunteer table operations
     public void volunteerTableSetup() {

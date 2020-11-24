@@ -103,7 +103,7 @@ public class DatabaseHandler {
             statement.close();
 
             Statement statement1 = connection.createStatement();
-            statement1.executeUpdate("CREATE TABLE updatedRecord(updated_password varchar2(20) PRIMARY KEY, old_password varchar2(20), update_date DATE )");
+            statement1.executeUpdate("CREATE TABLE updatedRecord(directorUpdate_id integer PRIMARY KEY, updated_password varchar2(20), old_password varchar2(20), update_date DATE )");
             statement1.close();
 
 
@@ -122,7 +122,7 @@ public class DatabaseHandler {
                     "AFTER UPDATE ON director " +
                     "FOR EACH ROW " +
                     "BEGIN " +
-                    "INSERT INTO updatedRecord (updated_password,old_password,update_date) VALUES (:new.d_password, :old.d_password, CURRENT_DATE); " +
+                    "INSERT INTO updatedRecord (directorUpdate_id,updated_password,old_password,update_date) VALUES (:new.director_id,:new.d_password, :old.d_password, CURRENT_DATE); " +
                     "END; ");
             statement.close();
 

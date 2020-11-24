@@ -97,19 +97,14 @@ public class DatabaseHandler {
 
 
         try {
-            Statement statement1 = connection.createStatement();
-            statement1.executeUpdate("CREATE TABLE updatedRecord(updated_password varchar2(20) PRIMARY KEY)");
-            statement1.close();
             Statement statement = connection.createStatement();
-            //ResultSet resultSet = statement.executeQuery("select table_name from user_tables");
             statement.execute("DROP TABLE " + "updatedRecord" + " cascade constraints");
-
-
             //resultSet.close();
             statement.close();
 
-
-            // The SQL script to create the table
+            Statement statement1 = connection.createStatement();
+            statement1.executeUpdate("CREATE TABLE updatedRecord(updated_password varchar2(20) PRIMARY KEY, old_password varchar2(20), update_date DATE )");
+            statement1.close();
 
 
 
@@ -127,7 +122,7 @@ public class DatabaseHandler {
                     "AFTER UPDATE ON director " +
                     "FOR EACH ROW " +
                     "BEGIN " +
-                    "INSERT INTO updatedRecord (updated_password) VALUES (:new.d_password); " +
+                    "INSERT INTO updatedRecord (updated_password,old_password,update_date) VALUES (:new.d_password, :old.d_password, CURRENT_DATE); " +
                     "END; ");
             statement.close();
 

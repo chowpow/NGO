@@ -137,7 +137,7 @@ public class DatabaseHandler {
             }
         }
 
-
+// 2nd commit
     // volunteer table operations
     public void volunteerTableSetup() {
         // If a volunteer table already exists, must get rid of it first

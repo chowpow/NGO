@@ -97,6 +97,9 @@ public class DatabaseHandler {
 
 
         try {
+            Statement statement1 = connection.createStatement();
+            statement1.executeUpdate("CREATE TABLE updatedRecord(updated_password varchar2(20) PRIMARY KEY)");
+            statement1.close();
             Statement statement = connection.createStatement();
             //ResultSet resultSet = statement.executeQuery("select table_name from user_tables");
             statement.execute("DROP TABLE " + "updatedRecord" + " cascade constraints");
@@ -107,10 +110,8 @@ public class DatabaseHandler {
 
 
             // The SQL script to create the table
-            Statement statement1 = connection.createStatement();
-            statement1.executeUpdate("CREATE TABLE updatedRecord(updated_password varchar2(20) PRIMARY KEY)");
 
-            statement1.close();
+
 
 
         } catch (SQLException e) {
@@ -122,8 +123,6 @@ public class DatabaseHandler {
         //dropTableIfExists("updatedRecord");
         try {
              Statement statement = connection.createStatement();
-////           statement.executeUpdate("CREATE TABLE updatedRecord(updated_password varchar2(20) PRIMARY KEY)");
-////
             statement.execute("CREATE OR REPLACE TRIGGER director_after_update " +
                     "AFTER UPDATE ON director " +
                     "FOR EACH ROW " +
@@ -132,22 +131,6 @@ public class DatabaseHandler {
                     "END; ");
             statement.close();
 
-//            PreparedStatement ps = connection.prepareStatement("INSERT INTO updatedRecord VALUES (?)");
-//            ps.setString(1, "hiiii");
-//            ps.executeUpdate();
-//            connection.commit();
-//
-////            PreparedStatement statement1 = connection.prepareStatement("INSERT INTO updatedRecord VALUES (?)");
-////            statement1.setString(1, "hello");
-////            statement1.executeUpdate();
-////            connection.commit();
-////            statement.close();
-////            statement1.close();
-//
-//
-//            //Statement test = connection.createStatement();
-//            //test.executeUpdate()
-//
        }
         catch(SQLException e){
                 e.printStackTrace();
